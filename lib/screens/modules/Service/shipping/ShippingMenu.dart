@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kori_test_refactoring/Providers/NetworkModel.dart';
 import 'package:kori_test_refactoring/Utills/navScreens.dart';
 import 'package:kori_test_refactoring/screens/ServiceScreen.dart';
-import 'package:kori_test_refactoring/screens/modules/Service/shipping/ShippingDestinationModule.dart';
+// import 'package:kori_test_refactoring/screens/modules/Service/shipping/ShippingDestinationModule.dart';
 import 'package:kori_test_refactoring/screens/modules/Service/shipping/ShippingDestinationModuleNew.dart';
 import 'package:provider/provider.dart';
 
@@ -95,7 +95,7 @@ class _ShippingMenuState extends State<ShippingMenu> {
                           textAlign: TextAlign.center,
                         ),
                         Text(
-                          '택배함에 올려놓으신 후',
+                          '선반에 올려놓으신 후',
                           style: buttonFont2,
                           textAlign: TextAlign.center,
                         ),
