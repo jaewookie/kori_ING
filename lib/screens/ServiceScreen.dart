@@ -1,20 +1,21 @@
-import 'dart:convert';
+// import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:kori_test_refactoring/Providers/NetworkModel.dart';
-import 'package:kori_test_refactoring/Utills/callApi.dart';
+// import 'package:kori_test_refactoring/Utills/callApi.dart';
 import 'package:kori_test_refactoring/Utills/navScreens.dart';
 
 import 'package:kori_test_refactoring/Widgets/MenuButtons.dart';
 import 'package:kori_test_refactoring/screens/MainScreen.dart';
-import 'package:kori_test_refactoring/screens/modules/Service/serving/ServingMenu.dart';
-import 'package:kori_test_refactoring/screens/modules/Service/serving2/ServingMenu2.dart';
-import 'package:kori_test_refactoring/screens/modules/Service/serving2/TraySelection2.dart';
+import 'package:kori_test_refactoring/screens/modules/Service/hotel/HotelServiceMenu.dart';
+// import 'package:kori_test_refactoring/screens/modules/Service/serving/ServingMenu.dart';
+// import 'package:kori_test_refactoring/screens/modules/Service/serving2/ServingMenu2.dart';
+// import 'package:kori_test_refactoring/screens/modules/Service/serving2/TraySelection2.dart';
 import 'package:kori_test_refactoring/screens/modules/Service/serving3/TraySelection3.dart';
 import 'package:kori_test_refactoring/screens/modules/Service/shipping/ShippingMenu.dart';
 
-import 'package:kori_test_refactoring/Widgets/NavigatorModule.dart';
-import 'package:kori_test_refactoring/screens/modules/Service/shipping/ShippingDestinationModule.dart';
+// import 'package:kori_test_refactoring/Widgets/NavigatorModule.dart';
+// import 'package:kori_test_refactoring/screens/modules/Service/shipping/ShippingDestinationModule.dart';
 import 'package:provider/provider.dart';
 
 class ServiceScreen extends StatefulWidget {
@@ -46,8 +47,8 @@ class _ServiceScreenState extends State<ServiceScreen> {
 
   int? shipping;
   int? serving;
-  int? bellboy;
-  int? roomService;
+  int? hotel;
+  // int? roomService;
 
   bool? shippingCheck;
   bool? navCheck;
@@ -77,25 +78,27 @@ class _ServiceScreenState extends State<ServiceScreen> {
 
     shipping = 0;
     serving = 1;
-    bellboy = 2;
-    roomService = 3;
+    hotel = 2;
+    // roomService = 3;
 
     appIcon1 = Icons.local_shipping_outlined;
     appIcon2 = Icons.delivery_dining_outlined;
-    appIcon3 = Icons.luggage_outlined;
-    appIcon4 = Icons.room_service_outlined;
+    appIcon3 = Icons.hotel;
+    // appIcon4 = Icons.room_service_outlined;
 
     buttonIconSize = 120;
 
     servicePages = [
       ShippingMenu(),
       TraySelection3(),
-      ShippingMenu(),
+      HotelServiceMenu(),
       ShippingMenu()
     ];
 
-    homeButtonName = ["택배", "서빙", "벨보이", "룸서비스"];
-    homeButtonIcon = [appIcon1!, appIcon2!, appIcon3!, appIcon4!];
+    homeButtonName = ["택배", "서빙", "호텔"];
+    // homeButtonName = ["택배", "서빙", "호텔", "룸서비스"];
+    homeButtonIcon = [appIcon1!, appIcon2!, appIcon3!];
+    // homeButtonIcon = [appIcon1!, appIcon2!, appIcon3!, appIcon4!];
   }
 
   @override
@@ -113,7 +116,6 @@ class _ServiceScreenState extends State<ServiceScreen> {
 
     return WillPopScope(
       onWillPop: () async {
-        DateTime now = DateTime.now();
         Navigator.pop(context);
         return Future.value(false);
       },
@@ -234,7 +236,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
                                       }
                                     }
                                   }
-                                  else if(serviceState == bellboy){
+                                  else if(serviceState == hotel){
                                     for (int j = 0;
                                     j < PositioningList.length;
                                     j++) {
@@ -244,9 +246,9 @@ class _ServiceScreenState extends State<ServiceScreen> {
                                           PositionList.replaceRange(
                                               0, 0, [PositioningList[j]]);
                                         } else {
-                                          if(PositioningList[j].contains('bell_'))
+                                          if(PositioningList[j].contains('room_'))
                                           {
-                                            shippingPose = PositioningList[j].split('bell_');
+                                            shippingPose = PositioningList[j].split('room_');
                                             shippingPose.removeAt(j);
                                             print(shippingPose);
                                             PositionList.add(shippingPose[j]);
