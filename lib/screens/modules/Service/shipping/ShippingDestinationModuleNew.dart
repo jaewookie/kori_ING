@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:kori_test_refactoring/Providers/NetworkModel.dart';
 import 'package:kori_test_refactoring/Utills/navScreens.dart';
 import 'package:kori_test_refactoring/Utills/postAPI.dart';
-import 'package:kori_test_refactoring/Widgets/ShippingButtons.dart';
 import 'package:kori_test_refactoring/Widgets/ShippingModules/ShippingDestinationsModal.dart';
 import 'package:kori_test_refactoring/screens/ServiceScreen.dart';
 import 'package:kori_test_refactoring/Widgets/NavigatorModule.dart';
@@ -27,6 +26,8 @@ class _ShippingDestinationNewState extends State<ShippingDestinationNew> {
   String? stpUrl;
   String? rsmUrl;
 
+  bool? goalChecker;
+
   late dynamic responsePostMSG;
 
   late var goalPosition = List<String>.empty();
@@ -38,6 +39,7 @@ class _ShippingDestinationNewState extends State<ShippingDestinationNew> {
     // TODO: implement initState
     super.initState();
     currentGoal = "";
+    goalChecker = false;
   }
 
   void showDestinationListPopup(context) {
@@ -46,6 +48,61 @@ class _ShippingDestinationNewState extends State<ShippingDestinationNew> {
         context: context,
         builder: (context) {
           return ShippingDestinationModal();
+        });
+  }
+
+  void showGoalFalsePopup(context) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          double screenWidth = MediaQuery.of(context).size.width;
+          double screenHeight = MediaQuery.of(context).size.height;
+
+          return AlertDialog(
+            content: SizedBox(
+              width: screenWidth * 0.5,
+              height: screenHeight * 0.1,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('목적지를 잘 못 입력하였습니다.'),
+                ],
+              ),
+            ),
+            backgroundColor: Color(0xff2C2C2C),
+            contentTextStyle: Theme.of(context).textTheme.headlineLarge,
+            shape: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(40),
+                borderSide: BorderSide(
+                  color: Color(0xFFB7B7B7),
+                  style: BorderStyle.solid,
+                  width: 1,
+                )),
+            actions: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text(
+                      '확인',
+                      style: Theme.of(context).textTheme.headlineLarge,
+                    ),
+                    style: TextButton.styleFrom(
+                        shape: LinearBorder(
+                            side: BorderSide(color: Colors.white, width: 2),
+                            top: LinearBorderEdge(size: 0.9)),
+                        minimumSize:
+                        Size(screenWidth * 0.5, screenHeight * 0.04)),
+                  ),
+                ],
+              )
+            ],
+            // actionsPadding: EdgeInsets.only(top: screenHeight * 0.001),
+          );
         });
   }
 
@@ -59,9 +116,6 @@ class _ShippingDestinationNewState extends State<ShippingDestinationNew> {
     double numberButtonWidth = screenWidth * 0.25;
     double numberButtonHeight = screenWidth * 0.25;
 
-    double textButtonWidth = screenWidth * 0.34; //0.4
-    double textButtonHeight = screenHeight * 0.105; //0.7
-
     TextStyle? padFont = Theme.of(context).textTheme.displayMedium;
     TextStyle? numberFont = Theme.of(context).textTheme.displaySmall;
 
@@ -72,6 +126,9 @@ class _ShippingDestinationNewState extends State<ShippingDestinationNew> {
     chgUrl = _networkProvider.chgUrl;
     stpUrl = _networkProvider.stpUrl;
     rsmUrl = _networkProvider.rsmUrl;
+
+    print('checker');
+    print(goalChecker);
 
     return Scaffold(
       appBar: AppBar(
@@ -283,22 +340,35 @@ class _ShippingDestinationNewState extends State<ShippingDestinationNew> {
                     ),
                     TextButton(
                         onPressed: () {
-                          if (currentGoal != '000') {
-                            PostApi(
-                                url: startUrl,
-                                endadr: navUrl,
-                                keyBody: 'shipping_$currentGoal').Posting();
-                            _networkProvider.currentGoal = currentGoal;
+                          for(int i=0; i < goalPosition.length; i++){
+                            if(currentGoal!.compareTo(goalPosition[i])==0){
+                              setState(() {
+                                goalChecker = true;
+                              });
+                            }
+                          }
+                          if(goalChecker == true){
+                            print('--------------------------true-----------------------');
+                            if (currentGoal != '000') {
+                              PostApi(
+                                  url: startUrl,
+                                  endadr: navUrl,
+                                  keyBody: 'shipping_$currentGoal').Posting();
+                              _networkProvider.currentGoal = currentGoal;
 
-                            navPage(context: context, page: NavigatorModule(), enablePop: true).navPageToPage();
-                          } else {
-                            PostApi(
-                                url: startUrl,
-                                endadr: chgUrl,
-                                keyBody: 'charging_pile').Posting();
-                            _networkProvider.currentGoal = '충전스테이션';
+                              navPage(context: context, page: NavigatorModule(), enablePop: true).navPageToPage();
+                            } else {
+                              PostApi(
+                                  url: startUrl,
+                                  endadr: chgUrl,
+                                  keyBody: 'charging_pile').Posting();
+                              _networkProvider.currentGoal = '충전스테이션';
 
-                            navPage(context: context, page: NavigatorModule(), enablePop: true).navPageToPage();
+                              navPage(context: context, page: NavigatorModule(), enablePop: true).navPageToPage();
+                            }
+                          }else{
+                            print('--------------------------false-----------------------');
+                            showGoalFalsePopup(context);
                           }
                         },
                         child: Text(

@@ -1,22 +1,16 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:kori_test_refactoring/Providers/NetworkModel.dart';
 import 'package:kori_test_refactoring/Providers/ServingModel.dart';
 import 'package:kori_test_refactoring/Utills/navScreens.dart';
-import 'package:kori_test_refactoring/Utills/postAPI.dart';
-import 'package:kori_test_refactoring/Widgets/OrderedMenuButtons.dart';
 import 'package:kori_test_refactoring/Widgets/ServingModules/itemOrderModal.dart';
 import 'package:kori_test_refactoring/Widgets/ServingModules/itemSelectModal.dart';
 import 'package:kori_test_refactoring/Widgets/ServingModules/receiptModal.dart';
 import 'package:kori_test_refactoring/Widgets/ServingModules/tableSelectModal.dart';
 import 'package:kori_test_refactoring/screens/ServiceScreen.dart';
-import 'package:kori_test_refactoring/Widgets/NavigatorModule.dart';
 import 'package:provider/provider.dart';
 
 
 // 트레이 반응형 UI
-
 
 class TraySelection3 extends StatefulWidget {
   const TraySelection3({Key? key}) : super(key: key);
@@ -162,10 +156,6 @@ class _TraySelection3State extends State<TraySelection3> {
     startUrl = _networkProvider.startUrl;
     navUrl = _networkProvider.navUrl;
 
-    List<String> tableDestinations = [];
-    List<String> itemDestinations = [];
-    List<String> trayDestinations = [];
-
     print(_servingProvider.itemImageList);
 
     if (itemName == '햄버거') {
@@ -188,8 +178,7 @@ class _TraySelection3State extends State<TraySelection3> {
     double screenHeight = MediaQuery.of(context).size.height;
     double textButtonWidth = screenWidth * 0.6;
     double textButtonHeight = screenHeight * 0.08;
-
-    TextStyle? textFont1 = Theme.of(context).textTheme.displaySmall;
+    
     TextStyle? textFont2 = Theme.of(context).textTheme.headlineLarge;
     TextStyle? buttonFont = Theme.of(context).textTheme.headlineMedium;
 

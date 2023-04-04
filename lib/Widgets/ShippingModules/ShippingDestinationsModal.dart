@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:kori_test_refactoring/Providers/NetworkModel.dart';
 import 'package:kori_test_refactoring/Utills/navScreens.dart';
@@ -44,9 +42,7 @@ class _ShippingDestinationModalState extends State<ShippingDestinationModal> {
     double textButtonWidth = screenWidth * 0.34; //0.4
     double textButtonHeight = screenHeight * 0.105; //0.7
 
-    TextStyle? tableFont = Theme.of(context).textTheme.displaySmall;
     TextStyle? tableButtonFont = Theme.of(context).textTheme.headlineLarge;
-    TextStyle? tableButtonSubFont = Theme.of(context).textTheme.headlineMedium;
 
     return Container(
       margin:
@@ -113,45 +109,38 @@ class _ShippingDestinationModalState extends State<ShippingDestinationModal> {
                                                 SizedBox(
                                                   width: screenWidth * 0.02,
                                                 ),
-                                                Container(
-                                                  width: textButtonWidth,
-                                                  height: textButtonHeight,
-                                                  decoration: BoxDecoration(
-                                                      color: Color.fromRGBO(
-                                                          45, 45, 45, 45),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              40),
-                                                      border: Border.fromBorderSide(
-                                                          BorderSide(
-                                                              // color: Color(0xFF11ffFF),
-                                                              style: BorderStyle
-                                                                  .solid,
-                                                              width: 1))),
-                                                  child: Center(
-                                                    child: goalPosition[j] ==
-                                                            'charging_pile'
-                                                        ? Stack(
-                                                      children: [
-                                                        Center(
-                                                          child: Text("000",style:
-                                                          tableButtonFont,),
-                                                        ),
-                                                        Positioned(
-                                                          top: textButtonHeight*0.65,
-                                                          left: textButtonWidth*0.34,
-                                                          child: Text("충전스테이션",style:
-                                                          tableButtonSubFont,),
-                                                        )
-                                                      ],
-                                                    )
-                                                        : Text(
-                                                            goalPosition[j],
-                                                            style:
-                                                                tableButtonFont,
-                                                          ),
-                                                  ),
-                                                ),
+                                                ShippingButtons(
+                                                    onPressed: () {
+                                                      if (goalPosition[j].toString() !=
+                                                          "charging_pile") {
+                                                        PostApi(
+                                                            url: startUrl,
+                                                            endadr: navUrl,
+                                                            keyBody:
+                                                            goalPosition[j].toString()).Posting();
+                                                        _networkProvider.currentGoal =
+                                                            goalPosition[j].toString();
+                                                        navPage(context: context, page: NavigatorModule(), enablePop: true).navPageToPage();
+                                                      } else {
+                                                        PostApi(
+                                                            url: startUrl,
+                                                            endadr: chgUrl,
+                                                            keyBody:
+                                                            goalPosition[j].toString()).Posting();
+                                                        _networkProvider.currentGoal = '충전스테이션';
+                                                        navPage(context: context, page: NavigatorModule(), enablePop: true).navPageToPage();
+                                                      }
+                                                    },
+                                                    buttonText:
+                                                    goalPosition[j] == 'charging_pile'
+                                                        ? "충전기"
+                                                        : goalPosition[j],
+                                                    buttonWidth: textButtonWidth,
+                                                    buttonHeight: textButtonHeight,
+                                                    buttonColor: Color.fromRGBO(45, 45, 45, 45),
+                                                    screenWidth: screenWidth,
+                                                    screenHeight: screenHeight,
+                                                    buttonFont: tableButtonFont),
                                                 SizedBox(
                                                   width: screenWidth * 0.02,
                                                 )
@@ -160,30 +149,28 @@ class _ShippingDestinationModalState extends State<ShippingDestinationModal> {
                                         else
                                           Row(
                                             children: [
-                                              Container(
-                                                width: textButtonWidth,
-                                                height: textButtonHeight,
-                                                decoration: BoxDecoration(
-                                                    color: Color.fromRGBO(
-                                                        45, 45, 45, 45),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            40),
-                                                    border: Border.fromBorderSide(
-                                                        BorderSide(
-                                                            // color: Color(0xFF11ffFF),
-                                                            style: BorderStyle
-                                                                .solid,
-                                                            width: 1))),
-                                                child: Center(
-                                                  child: Text(
-                                                    goalPosition.last,
-                                                    style: tableButtonFont,
-                                                  ),
-                                                ),
-                                              ),
+                                              ShippingButtons(
+                                                  onPressed: () {
+                                                    PostApi(
+                                                        url: startUrl,
+                                                        endadr: navUrl,
+                                                        keyBody:
+                                                        goalPosition.last.toString()).Posting();
+
+                                                    // setState(() {
+                                                    //   currentGoal = '충전스테이션';
+                                                    // });
+                                                    _networkProvider.currentGoal = goalPosition.last;
+                                                  },
+                                                  buttonText: goalPosition.last,
+                                                  buttonWidth: textButtonWidth,
+                                                  buttonHeight: textButtonHeight,
+                                                  buttonColor: Color.fromRGBO(45, 45, 45, 45),
+                                                  screenWidth: screenWidth,
+                                                  screenHeight: screenHeight,
+                                                  buttonFont: tableButtonFont),
                                               SizedBox(
-                                                width: textButtonWidth * 1.12,
+                                                width: textButtonWidth*1.12,
                                                 height: textButtonHeight * 0.7,
                                               )
                                             ],
