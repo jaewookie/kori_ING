@@ -91,9 +91,6 @@ class _TraySelection3State extends State<TraySelection3> {
 
     backgroundImage = "assets/images/KoriBackgroundImage_v1.png";
     koriBody = "assets/images/serving_img/kori_body.png";
-    servingTray1 = "assets/images/serving_img/serving_tray1.png";
-    servingTray2 = "assets/images/serving_img/serving_tray2.png";
-    servingTray3 = "assets/images/serving_img/serving_tray3.png";
   }
 
   void showReceiptSelectPopup(context) {
@@ -228,39 +225,6 @@ class _TraySelection3State extends State<TraySelection3> {
                 image: AssetImage(backgroundImage), fit: BoxFit.cover)),
         child: Stack(
           children: [
-            //트레이1 사진
-            Offstage(
-              offstage: offStageTray1!,
-              child: Container(
-                  constraints: BoxConstraints.expand(),
-                  decoration: BoxDecoration(
-                    image: DecorationImage(image: AssetImage(servingTray1)),
-                  ),
-                  margin: EdgeInsets.only(top: screenHeight * 0.05),
-                  child: SizedBox()),
-            ),
-            //트레이2 사진
-            Offstage(
-              offstage: offStageTray2!,
-              child: Container(
-                  constraints: BoxConstraints.expand(),
-                  decoration: BoxDecoration(
-                    image: DecorationImage(image: AssetImage(servingTray2)),
-                  ),
-                  margin: EdgeInsets.only(top: screenHeight * 0.05),
-                  child: SizedBox()),
-            ),
-            //트레이3 사진
-            Offstage(
-              offstage: offStageTray3!,
-              child: Container(
-                  constraints: BoxConstraints.expand(),
-                  decoration: BoxDecoration(
-                    image: DecorationImage(image: AssetImage(servingTray3)),
-                  ),
-                  margin: EdgeInsets.only(top: screenHeight * 0.05),
-                  child: SizedBox()),
-            ),
             //기능적 부분
             Container(
               constraints: BoxConstraints.expand(),
