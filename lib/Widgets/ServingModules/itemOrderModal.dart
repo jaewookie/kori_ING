@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-// import 'package:kori_test_refactoring/Providers/NetworkModel.dart';
-import 'package:kori_test_refactoring/Widgets/MenuButtons.dart';
-import 'package:kori_test_refactoring/Widgets/ServingModules/tableSelectModal.dart';
+import 'package:kori_test_refactoring/Providers/OrderModel.dart';
+
+import 'package:kori_test_refactoring/Widgets/OrderModules/CheckOutModal.dart';
 import 'package:provider/provider.dart';
 
 import '../../Providers/ServingModel.dart';
@@ -15,16 +15,19 @@ class ItemOrderModal extends StatefulWidget {
 
 class _ItemOrderModalState extends State<ItemOrderModal> {
   late ServingModel _servingProvider;
+  late OrderModel _orderProvider;
 
   String? tableNumber;
 
-  List<String> orderedItems = [];
+  List<String>? orderedItems;
 
   List<String> menuItems = ['햄버거', '라면', '치킨', '핫도그'];
   int? menuLength;
 
   List<bool>? selectedItem;
   int? selectedQt;
+
+  bool? checkOutItems;
 
   String hamburgerImg = 'assets/images/serving_menu_img/menu_hamburger.png';
   String ramyeonImg = 'assets/images/serving_menu_img/menu_ramyeon.png';
@@ -45,7 +48,7 @@ class _ItemOrderModalState extends State<ItemOrderModal> {
         barrierDismissible: false,
         context: context,
         builder: (context) {
-          return SelectTableModal();
+          return CheckOutScreen();
         });
   }
 
@@ -56,14 +59,32 @@ class _ItemOrderModalState extends State<ItemOrderModal> {
     menuImgItems = [hamburgerImg, ramyeonImg, chickenImg, hotDogImg];
     menuLength = menuItems.length;
     selectedItem = List<bool>.filled(menuLength!, true, growable: true);
-    // selectedQt = 0;
+    selectedQt = 0;
+    checkOutItems = true;
   }
 
   @override
   Widget build(BuildContext context) {
     _servingProvider = Provider.of<ServingModel>(context, listen: false);
+    _orderProvider = Provider.of<OrderModel>(context, listen: false);
 
     tableNumber = _servingProvider.tableNumber;
+
+    if (_orderProvider.orderedItems == null) {
+      orderedItems!.isEmpty;
+    } else {
+      orderedItems = _orderProvider.orderedItems;
+    }
+
+    if (selectedQt == 0) {
+      checkOutItems = true;
+    } else {
+      checkOutItems = false;
+    }
+
+    print('asdfsadf');
+    print(_orderProvider.orderedItems);
+    print('asdfsadf');
 
     print(menuLength);
     print(menuLength.runtimeType);
@@ -73,7 +94,6 @@ class _ItemOrderModalState extends State<ItemOrderModal> {
     double textButtonWidth = screenWidth * 0.4;
     double textButtonHeight = screenHeight * 0.15;
 
-    TextStyle? tableFont = Theme.of(context).textTheme.displaySmall;
     TextStyle? tableButtonFont = Theme.of(context).textTheme.headlineLarge;
 
     print(selectedItem);
@@ -101,6 +121,9 @@ class _ItemOrderModalState extends State<ItemOrderModal> {
                     IconButton(
                       onPressed: () {
                         Navigator.pop(context);
+                        setState(() {
+                          _orderProvider.orderedItems = [];
+                        });
                       },
                       icon: Icon(Icons.cancel_presentation_outlined),
                       color: const Color(0xffF0F0F0),
@@ -139,28 +162,30 @@ class _ItemOrderModalState extends State<ItemOrderModal> {
                                                       width: 1))),
                                           onPressed: () {
                                             setState(() {
-                                              if (selectedItem![
-                                              (2 * j)] ==
+                                              if (selectedItem![(2 * j)] ==
                                                   true) {
-                                                orderedItems.add(
-                                                    menuItems[(2 * j)]);
+                                                _orderProvider.orderedItems!
+                                                    .add(menuItems[(2 * j)]);
                                                 selectedItem!.replaceRange(
                                                     (2 * j),
                                                     (2 * j) + 1,
                                                     [false]);
                                               } else {
-                                                orderedItems.remove(
-                                                    menuItems[(2 * j)]);
+                                                _orderProvider.orderedItems!
+                                                    .remove(menuItems[(2 * j)]);
                                                 selectedItem!.replaceRange(
-                                                    (2 * j) ,
+                                                    (2 * j),
                                                     (2 * j) + 1,
                                                     [true]);
                                               }
                                               selectedQt = 0;
-                                              for(int i = 0; i<selectedItem!.length; i++){
-                                                if(selectedItem![i]==false){
+                                              for (int i = 0;
+                                                  i < selectedItem!.length;
+                                                  i++) {
+                                                if (selectedItem![i] == false) {
                                                   setState(() {
-                                                    selectedQt=selectedQt!+1;
+                                                    selectedQt =
+                                                        selectedQt! + 1;
                                                   });
                                                 }
                                               }
@@ -172,21 +197,25 @@ class _ItemOrderModalState extends State<ItemOrderModal> {
                                             children: [
                                               Stack(children: [
                                                 Container(
-                                                    height:
-                                                    screenHeight * 0.2,
+                                                    height: screenHeight * 0.2,
                                                     width: screenWidth * 0.4,
                                                     decoration: BoxDecoration(
                                                         image: DecorationImage(
                                                             image: AssetImage(
                                                                 menuImgItems[
-                                                                (2 * j)]),
+                                                                    (2 * j)]),
                                                             fit: BoxFit
                                                                 .fitHeight))),
                                                 Offstage(
-                                                  offstage: selectedItem![
-                                                  (2 * j)],
+                                                  offstage:
+                                                      selectedItem![(2 * j)],
                                                   child: Container(
-                                                    padding: EdgeInsets.fromLTRB(screenWidth*0.02, screenHeight*0.01, 0, 0),
+                                                    padding:
+                                                        EdgeInsets.fromLTRB(
+                                                            screenWidth * 0.02,
+                                                            screenHeight * 0.01,
+                                                            0,
+                                                            0),
                                                     child: Icon(
                                                       Icons
                                                           .check_circle_outline_rounded,
@@ -235,15 +264,17 @@ class _ItemOrderModalState extends State<ItemOrderModal> {
                                                 if (selectedItem![
                                                         (2 * j) + 1] ==
                                                     true) {
-                                                  orderedItems.add(
-                                                      menuItems[(2 * j) + 1]);
+                                                  _orderProvider.orderedItems!
+                                                      .add(menuItems[
+                                                          (2 * j) + 1]);
                                                   selectedItem!.replaceRange(
                                                       (2 * j) + 1,
                                                       (2 * j) + 2,
                                                       [false]);
                                                 } else {
-                                                  orderedItems.remove(
-                                                      menuItems[(2 * j) + 1]);
+                                                  _orderProvider.orderedItems!
+                                                      .remove(menuItems[
+                                                          (2 * j) + 1]);
                                                   selectedItem!.replaceRange(
                                                       (2 * j) + 1,
                                                       (2 * j) + 2,
@@ -251,10 +282,13 @@ class _ItemOrderModalState extends State<ItemOrderModal> {
                                                 }
                                               });
                                               selectedQt = 0;
-                                              for(int i = 0; i<selectedItem!.length; i++){
-                                                if(selectedItem![i]==false){
+                                              for (int i = 0;
+                                                  i < selectedItem!.length;
+                                                  i++) {
+                                                if (selectedItem![i] == false) {
                                                   setState(() {
-                                                    selectedQt=selectedQt!+1;
+                                                    selectedQt =
+                                                        selectedQt! + 1;
                                                   });
                                                 }
                                               }
@@ -279,7 +313,14 @@ class _ItemOrderModalState extends State<ItemOrderModal> {
                                                     offstage: selectedItem![
                                                         (2 * j) + 1],
                                                     child: Container(
-                                                      padding: EdgeInsets.fromLTRB(screenWidth*0.02, screenHeight*0.01, 0, 0),
+                                                      padding:
+                                                          EdgeInsets.fromLTRB(
+                                                              screenWidth *
+                                                                  0.02,
+                                                              screenHeight *
+                                                                  0.01,
+                                                              0,
+                                                              0),
                                                       child: Icon(
                                                         Icons
                                                             .check_circle_outline_rounded,
@@ -344,48 +385,84 @@ class _ItemOrderModalState extends State<ItemOrderModal> {
             ),
             Container(
               margin: EdgeInsets.fromLTRB(screenWidth * 0.01,
-                  textButtonHeight * 0.1, screenWidth * 0.01, 0),
+                  0, screenWidth * 0.01, 0),
               child: Stack(children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    MenuButtons(
-                        assetsBool: false,
-                        onPressed: () {},
-                        buttonText: '장바구니',
-                        appIcon: Icons.shopping_bag,
-                        buttonIconSize: 120,
-                        buttonWidth: textButtonWidth,
-                        buttonHeight: textButtonHeight * 0.8,
-                        buttonColor: const Color.fromRGBO(45, 45, 45, 45),
-                        buttonFont: tableFont),
-                    MenuButtons(
-                        assetsBool: false,
-                        onPressed: () {},
-                        buttonText: '결제',
-                        appIcon: Icons.payment,
-                        buttonIconSize: 120,
-                        buttonWidth: textButtonWidth,
-                        buttonHeight: textButtonHeight * 0.8,
-                        buttonColor: const Color.fromRGBO(45, 45, 45, 45),
-                        buttonFont: tableFont),
-                  ],
-                ),
-                Container(
-                  // color: Colors.red,
-                  margin: EdgeInsets.fromLTRB(
-                      screenWidth * 0.14, screenWidth * 0.07, 0, 0),
-                  width: screenWidth * 0.04,
-                  height: screenWidth * 0.04,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.red,
+                Padding(
+                  padding: EdgeInsets.only(right: screenWidth*0.015),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Column(
+                        children: [
+                          Icon(
+                            Icons.shopping_cart_outlined,
+                            size: 300,
+                            color: Color(0xffB7B7B7),
+                          ),
+                          SizedBox(
+                            height: screenHeight*0.02,
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        width: screenWidth*0.05,
+                      ),
+                      TextButton(
+                          onPressed: () {
+                            showCheckingPopup(context);
+                          },
+                          child: Center(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                // SizedBox(
+                                //   width: textButtonWidth * 0.2,
+                                // ),
+                                Text(
+                                  '다음',
+                                  style: TextStyle(
+                                    fontFamily: 'kor',
+                                    fontSize: 100,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xffB7B7B7)
+                                  ),
+                                ),
+                                Icon(
+                                    Icons.arrow_forward,
+                                    color: Color(0xffB7B7B7),
+                                    size: 110,
+                                  ),
+                              ],
+                            ),
+                          ),
+                          style: TextButton.styleFrom(
+                              backgroundColor:
+                                  const Color.fromRGBO(45, 45, 45, 45),
+                              // backgroundColor: Color(0xFF2D2D2D),
+                              fixedSize:
+                                  Size(textButtonWidth*1.3, textButtonHeight * 0.8),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(40))))
+                    ],
                   ),
-                  child: Center(
-                      child: Text(
-                        '$selectedQt',
-                    style: TextStyle(color: Colors.black),
-                  )),
+                ),
+                Offstage(
+                  offstage: checkOutItems!,
+                  child: Container(
+                    // color: Colors.red,
+                    margin: EdgeInsets.fromLTRB(
+                        screenWidth * 0.14, screenWidth * 0.075, 0, 0),
+                    width: screenWidth * 0.08,
+                    height: screenWidth * 0.05,
+                    decoration: BoxDecoration(
+                        color: Color.fromRGBO(255, 0, 0, 30),
+                        borderRadius: BorderRadius.circular(50)),
+                    child: Center(
+                        child: Text(
+                      '$selectedQt',
+                      style: TextStyle(fontFamily: 'kor', color: Colors.black, fontSize: 35, fontWeight: FontWeight.bold),
+                    )),
+                  ),
                 )
               ]),
             )
