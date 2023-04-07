@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
+// import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kori_test_refactoring/Providers/NetworkModel.dart';
+import 'package:kori_test_refactoring/Providers/OrderModel.dart';
 import 'package:kori_test_refactoring/Providers/ServingModel.dart';
 import 'package:kori_test_refactoring/screens/IntroScreen.dart';
 import 'package:provider/provider.dart';
@@ -58,13 +59,17 @@ class MyApp extends StatelessWidget {
                 tableList: [],
                 itemImageList: ['a', 'b', 'c'],
                 menuItem: "미지정",
-                tableNumber: "10"))
+                tableNumber: "10")),
+        ChangeNotifierProvider(create: (context) => OrderModel(
+          orderedItems: [],
+        ))
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'KORi-Z Robot App',
         theme: ThemeData(
           scaffoldBackgroundColor: Color(0xff191919),
+          // fontFamily: 'kor',
           textTheme: TextTheme(
             //영어폰트용
             titleLarge:
