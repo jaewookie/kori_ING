@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:kori_test_refactoring/Providers/NetworkModel.dart';
 import 'package:kori_test_refactoring/Providers/ServingModel.dart';
@@ -6,6 +5,7 @@ import 'package:kori_test_refactoring/Utills/navScreens.dart';
 import 'package:kori_test_refactoring/Utills/postAPI.dart';
 import 'package:kori_test_refactoring/Widgets/NavigatorModule.dart';
 import 'package:kori_test_refactoring/screens/modules/Service/serving3/TraySelection3.dart';
+import 'package:kori_test_refactoring/screens/modules/Service/serving_final/TraySelectionFinal.dart';
 import 'package:provider/provider.dart';
 
 import 'tableSelectModal.dart';
@@ -114,11 +114,7 @@ class _TableSelectImgState extends State<TableSelectImg> {
           item1 = _servingProvider.item1;
           item2 = _servingProvider.item2;
           item3 = _servingProvider.item3;
-
-          List<String> tableDestinations = [];
-          List<String> itemDestinations = [];
-          List<String> trayDestinations = [];
-
+          
           startUrl = _networkProvider.startUrl;
           navUrl = _networkProvider.navUrl;
 
@@ -153,7 +149,7 @@ class _TableSelectImgState extends State<TableSelectImg> {
                       _servingProvider.cancelTraySelection();
                       navPage(
                               context: context,
-                              page: TraySelection3(),
+                              page: TraySelectionFinal(),
                               enablePop: false)
                           .navPageToPage();
                     },

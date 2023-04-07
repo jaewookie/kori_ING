@@ -79,6 +79,8 @@ flutter:
     - assets/videos/
     - assets/voices/
     - final_assets/icons/
+    - final_assets/icons/appBar/
+    - final_assets/icons/decoration/
     - final_assets/screens/
 
   # An image asset can refer to one or more resolution-specific "variants", see

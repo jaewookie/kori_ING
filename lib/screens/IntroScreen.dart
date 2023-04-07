@@ -4,7 +4,7 @@ import 'package:just_audio/just_audio.dart';
 import 'package:kori_test_refactoring/Providers/NetworkModel.dart';
 import 'package:kori_test_refactoring/Utills/callApi.dart';
 import 'package:kori_test_refactoring/Utills/navScreens.dart';
-import 'package:kori_test_refactoring/screens/MainScreen.dart';
+import 'package:kori_test_refactoring/screens/MainScreenFinal.dart';
 import 'package:provider/provider.dart';
 
 import 'package:video_player/video_player.dart';
@@ -109,7 +109,7 @@ class _IntroScreenState extends State<IntroScreen>
 
     navPage(
             context: context,
-            page: MainScreen(
+            page: MainScreenFinal(
               parsePoseData: getApiData,
             ),
             enablePop: true)

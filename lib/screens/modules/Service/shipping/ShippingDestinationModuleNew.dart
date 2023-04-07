@@ -66,7 +66,7 @@ class _ShippingDestinationNewState extends State<ShippingDestinationNew> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('목적지를 잘 못 입력하였습니다.'),
+                  Text('목적지를 잘못 입력하였습니다.'),
                 ],
               ),
             ),
@@ -97,6 +97,102 @@ class _ShippingDestinationNewState extends State<ShippingDestinationNew> {
                             top: LinearBorderEdge(size: 0.9)),
                         minimumSize:
                         Size(screenWidth * 0.5, screenHeight * 0.04)),
+                  ),
+                ],
+              )
+            ],
+            // actionsPadding: EdgeInsets.only(top: screenHeight * 0.001),
+          );
+        });
+  }
+
+  void showCountDownStarting(context) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          _networkProvider = Provider.of<NetworkModel>(context, listen: false);
+
+          double screenWidth = MediaQuery.of(context).size.width;
+          double screenHeight = MediaQuery.of(context).size.height;
+
+          startUrl = _networkProvider.startUrl;
+          navUrl = _networkProvider.navUrl;
+
+          return AlertDialog(
+            content: SizedBox(
+              width: screenWidth * 0.5,
+              height: screenHeight * 0.1,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('5초 후 배송을 시작합니다.'),
+                  Text('즉시 시작하려면 하단의 버튼을 눌러주세요'),
+                ],
+              ),
+            ),
+            backgroundColor: Color(0xff2C2C2C),
+            contentTextStyle: Theme.of(context).textTheme.headlineLarge,
+            shape: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(40),
+                borderSide: BorderSide(
+                  color: Color(0xFFB7B7B7),
+                  style: BorderStyle.solid,
+                  width: 1,
+                )),
+            actions: [
+              Row(
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text(
+                      '취소',
+                      style: Theme.of(context).textTheme.headlineMedium,
+                    ),
+                    style: TextButton.styleFrom(
+                        shape: LinearBorder(
+                            side: BorderSide(color: Colors.white, width: 2),
+                            top: LinearBorderEdge(size: 0.9),
+                            end: LinearBorderEdge(size: 0.9)),
+                        minimumSize:
+                        Size(screenWidth * 0.27, screenHeight * 0.04)),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      if (currentGoal != '000') {
+                        PostApi(
+                            url: startUrl,
+                            endadr: navUrl,
+                            keyBody: 'shipping_$currentGoal').Posting();
+                        _networkProvider.currentGoal = currentGoal;
+
+                        navPage(context: context, page: NavigatorModule(), enablePop: true).navPageToPage();
+                      } else {
+                        PostApi(
+                            url: startUrl,
+                            endadr: chgUrl,
+                            keyBody: 'charging_pile').Posting();
+                        _networkProvider.currentGoal = '충전스테이션';
+
+                        navPage(context: context, page: NavigatorModule(), enablePop: true).navPageToPage();
+                      }
+                    },
+                    child: Text('즉시 시작',
+                        style: Theme.of(context).textTheme.headlineMedium),
+                    style: TextButton.styleFrom(
+                      //라운드 보더
+                      // shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(bottomRight: Radius.circular(40)),side: BorderSide(
+                      //     color: Colors.white,
+                      //     width: 1
+                      // )),
+                      // 라인 보더
+                        shape: LinearBorder(
+                            side: BorderSide(color: Colors.white, width: 2),
+                            top: LinearBorderEdge(size: 0.9)),
+                        minimumSize:
+                        Size(screenWidth * 0.27, screenHeight * 0.04)),
                   ),
                 ],
               )
@@ -185,6 +281,7 @@ class _ShippingDestinationNewState extends State<ShippingDestinationNew> {
                             onPressed: () {
                               setState(() {
                                 currentGoal = "";
+                                goalChecker = false;
                               });
                             },
                             icon: Icon(Icons.restart_alt),
@@ -349,23 +446,7 @@ class _ShippingDestinationNewState extends State<ShippingDestinationNew> {
                           }
                           if(goalChecker == true){
                             print('--------------------------true-----------------------');
-                            if (currentGoal != '000') {
-                              PostApi(
-                                  url: startUrl,
-                                  endadr: navUrl,
-                                  keyBody: 'shipping_$currentGoal').Posting();
-                              _networkProvider.currentGoal = currentGoal;
-
-                              navPage(context: context, page: NavigatorModule(), enablePop: true).navPageToPage();
-                            } else {
-                              PostApi(
-                                  url: startUrl,
-                                  endadr: chgUrl,
-                                  keyBody: 'charging_pile').Posting();
-                              _networkProvider.currentGoal = '충전스테이션';
-
-                              navPage(context: context, page: NavigatorModule(), enablePop: true).navPageToPage();
-                            }
+                            showCountDownStarting(context);
                           }else{
                             print('--------------------------false-----------------------');
                             showGoalFalsePopup(context);
