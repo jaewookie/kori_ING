@@ -7,7 +7,7 @@ import 'package:kori_test_refactoring/Widgets/NavigatorModule.dart';
 import 'package:kori_test_refactoring/Widgets/ServingModules/tableSelectModalFinal.dart';
 import 'package:kori_test_refactoring/screens/modules/Service/serving3/TraySelection3.dart';
 import 'package:kori_test_refactoring/screens/modules/Service/serving_final/TraySelectionFinal.dart';
-import 'package:kori_test_refactoring/screens/modules/mainScreenButtonsFinal.dart';
+import 'package:kori_test_refactoring/screens/modules/ServingModuleButtonsFinal.dart';
 import 'package:provider/provider.dart';
 
 import 'tableSelectModal.dart';
@@ -412,7 +412,7 @@ class _TableSelectImgFinalState extends State<TableSelectImgFinal> {
               child: null,
             ),
           )),
-      FinalMainScreenButtons(screens: 4,),
+      ServingModuleButtonsFinal(screens: 2,),
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

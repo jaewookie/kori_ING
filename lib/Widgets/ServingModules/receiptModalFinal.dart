@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:kori_test_refactoring/Providers/NetworkModel.dart';
 import 'package:kori_test_refactoring/Widgets/OrderedMenuButtons.dart';
-import 'package:kori_test_refactoring/screens/modules/mainScreenButtonsFinal.dart';
+import 'package:kori_test_refactoring/screens/modules/ServingModuleButtonsFinal.dart';
 import 'package:provider/provider.dart';
 
 import '../../Providers/ServingModel.dart';
@@ -170,7 +170,7 @@ class _SelectReceiptModalFinalState extends State<SelectReceiptModalFinal> {
                 child: Text('주문서를 선택 해 주세요', style: TextStyle(fontFamily: 'kor', color: Color(0xffffffff), fontSize: 60, fontWeight: FontWeight.bold),)
               )),
           Positioned(
-            child: FinalMainScreenButtons(screens: 5,),)
+            child: ServingModuleButtonsFinal(screens: 3,),)
         ]),
       ),
     );

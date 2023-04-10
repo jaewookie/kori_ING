@@ -9,7 +9,7 @@ import 'package:kori_test_refactoring/Widgets/ServingModules/receiptModal.dart';
 import 'package:kori_test_refactoring/Widgets/ServingModules/receiptModalFinal.dart';
 import 'package:kori_test_refactoring/Widgets/ServingModules/tableSelectModal.dart';
 import 'package:kori_test_refactoring/screens/ServiceScreenFinal.dart';
-import 'package:kori_test_refactoring/screens/modules/mainScreenButtonsFinal.dart';
+import 'package:kori_test_refactoring/screens/modules/ServingModuleButtonsFinal.dart';
 import 'package:provider/provider.dart';
 
 // 트레이 반응형 UI
@@ -236,8 +236,8 @@ class _TraySelectionFinalState extends State<TraySelectionFinal> {
           children: [
             //기능적 부분
             Stack(children: [
-              FinalMainScreenButtons(
-                screens: 2,
+              ServingModuleButtonsFinal(
+                screens: 0,
               ),
               // 디버그 버튼
               Column(

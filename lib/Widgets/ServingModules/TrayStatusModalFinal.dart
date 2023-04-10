@@ -5,7 +5,7 @@ import 'package:kori_test_refactoring/Providers/NetworkModel.dart';
 import 'package:kori_test_refactoring/Widgets/OrderedMenuButtons.dart';
 import 'package:kori_test_refactoring/Widgets/ServingModules/tableSelect.dart';
 import 'package:kori_test_refactoring/Widgets/ServingModules/tableSelectFinal.dart';
-import 'package:kori_test_refactoring/screens/modules/mainScreenButtonsFinal.dart';
+import 'package:kori_test_refactoring/screens/modules/ServingModuleButtonsFinal.dart';
 import 'package:provider/provider.dart';
 
 import '../../Providers/ServingModel.dart';
@@ -74,7 +74,7 @@ class _TrayStatusModalFinalState extends State<TrayStatusModalFinal> {
                   child: null,
                 ),
               )),
-          FinalMainScreenButtons(screens: 6,),
+              ServingModuleButtonsFinal(screens: 4,),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

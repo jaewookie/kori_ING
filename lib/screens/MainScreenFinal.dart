@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:kori_test_refactoring/screens/modules/MainScreenButtonsFinal.dart';
 // import 'package:kori_test_refactoring/Providers/NetworkModel.dart';
-import 'package:kori_test_refactoring/screens/modules/mainScreenButtonsFinal.dart';
+import 'package:kori_test_refactoring/screens/modules/ServingModuleButtonsFinal.dart';
 import 'package:provider/provider.dart';
 
 class MainScreenFinal extends StatefulWidget {
@@ -143,7 +144,7 @@ class _MainScreenFinalState extends State<MainScreenFinal> with TickerProviderSt
                 image: DecorationImage(image: AssetImage(_wallpape))),
             child: Container(),
           ),
-          FinalMainScreenButtons(screens: 0),
+          MainScreenButtonsFinal(screens: 0),
           Positioned(
               left: 670 * pixelRatio,
               top: 1829 * pixelRatio,

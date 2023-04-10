@@ -6,6 +6,7 @@ import 'package:kori_test_refactoring/Utills/postAPI.dart';
 import 'package:kori_test_refactoring/Widgets/ServingButtons.dart';
 import 'package:kori_test_refactoring/Widgets/NavigatorModule.dart';
 import 'package:kori_test_refactoring/screens/ServiceScreenFinal.dart';
+import 'package:kori_test_refactoring/screens/modules/ServingModuleButtonsFinal.dart';
 import 'package:provider/provider.dart';
 
 class ServingProgressFinal extends StatefulWidget {
@@ -16,41 +17,41 @@ class ServingProgressFinal extends StatefulWidget {
 }
 
 class _ServingProgressFinalState extends State<ServingProgressFinal> {
-  late NetworkModel _networkProvider;
+  // late NetworkModel _networkProvider;
   late ServingModel _servingProvider;
+  //
+  // late String itemName;
+  // late String tableName;
+  // late String trayName;
+  //
+  // String? startUrl;
+  // String? navUrl;
+  // String? chgUrl;
+  //
+  // late List<String> tableDestinations;
+  // late List<String> itemDestinations;
+  // late List<String> trayDestinations;
 
-  late String itemName;
-  late String tableName;
-  late String trayName;
-
-  String? startUrl;
-  String? navUrl;
-  String? chgUrl;
-
-  late List<String> tableDestinations;
-  late List<String> itemDestinations;
-  late List<String> trayDestinations;
-
-  String backgroundImage = "assets/images/KoriBackgroundImage_v1.png";
+  String backgroundImage = "final_assets/screens/koriZFinalServingDone.png";
 
 
 
   @override
   Widget build(BuildContext context) {
-    _networkProvider = Provider.of<NetworkModel>(context, listen: false);
-    _servingProvider = Provider.of<ServingModel>(context, listen: false);
-
-    startUrl = _networkProvider.startUrl;
-    navUrl = _networkProvider.navUrl;
-    chgUrl = _networkProvider.chgUrl;
-
-    tableDestinations = _servingProvider.tableList!;
-    itemDestinations = _servingProvider.itemList!;
-    trayDestinations = _servingProvider.trayList!;
-
-    itemName = itemDestinations[0];
-    tableName = tableDestinations[0];
-    trayName = trayDestinations[0];
+    // _networkProvider = Provider.of<NetworkModel>(context, listen: false);
+    // _servingProvider = Provider.of<ServingModel>(context, listen: false);
+    //
+    // startUrl = _networkProvider.startUrl;
+    // navUrl = _networkProvider.navUrl;
+    // chgUrl = _networkProvider.chgUrl;
+    //
+    // tableDestinations = _servingProvider.tableList!;
+    // itemDestinations = _servingProvider.itemList!;
+    // trayDestinations = _servingProvider.trayList!;
+    //
+    // itemName = itemDestinations[0];
+    // tableName = tableDestinations[0];
+    // trayName = trayDestinations[0];
 
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
@@ -80,8 +81,8 @@ class _ServingProgressFinalState extends State<ServingProgressFinal> {
             IconButton(
               padding: EdgeInsets.only(right: screenWidth * 0.05),
               onPressed: () {
-                _servingProvider.initServing();
-                _servingProvider.clearAllTray();
+                // _servingProvider.initServing();
+                // _servingProvider.clearAllTray();
                 navPage(
                         context: context,
                         page: ServiceScreenFinal(),
@@ -109,111 +110,116 @@ class _ServingProgressFinalState extends State<ServingProgressFinal> {
                     image: AssetImage(backgroundImage), fit: BoxFit.cover)),
             child: Stack(children: [
               Container(
-                margin: EdgeInsets.only(top: screenHeight * 0.15),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        if(_servingProvider.trayCheckAll == true)
-                          Column(
-                          children: [
-                            Text('주문 하신 $itemName 나왔습니다.', style: textFont1),
-                            SizedBox(
-                              height: screenHeight * 0.05,
-                            ),
-                            Text('선반에서 상품을 수령 하신 후', style: textFont1),
-                            Text('완료 버튼을 눌러주세요.', style: textFont1),
-                            SizedBox(
-                              height: screenHeight * 0.04,
-                            ),
-                          ],
-                        )
-                        else
-                          Column(
-                            children: [
-                              Text('주문 하신 $itemName 나왔습니다.', style: textFont1),
-                              SizedBox(
-                                height: screenHeight * 0.05,
-                              ),
-                              Text('$trayName번 선반에서', style: textFont1),
-                              Text('상품을 수령 하신 후', style: textFont1),
-                              Text('완료 버튼을 눌러주세요.', style: textFont1),
-                              SizedBox(
-                                height: screenHeight * 0.04,
-                              ),
-                            ],
-                          ),
-                      ],
-                    ),
-                  ],
-                ),
+                child: ServingModuleButtonsFinal(screens: 5),
               ),
-              Positioned(
-                left: screenWidth * 0.325,
-                top: screenHeight * 0.55,
-                child: ServingButtons(
-                  onPressed: () {
-
-                    _servingProvider.playAd = false;
-
-                    if (tableDestinations.length > 1) {
-                      itemDestinations.removeAt(0);
-                      tableDestinations.removeAt(0);
-                      trayDestinations.removeAt(0);
-                    } else {
-                      tableDestinations.clear();
-                      itemDestinations.clear();
-                      trayDestinations.clear();
-                    }
-                    _servingProvider.itemList = itemDestinations;
-                    _servingProvider.tableList = tableDestinations;
-                    _servingProvider.trayList = trayDestinations;
-                    print(_servingProvider.itemList);
-                    print(_servingProvider.tableList);
-                    print(_servingProvider.trayList);
-
-                    if (_servingProvider.tableList!.length == 0) {
-                      PostApi(
-                              url: startUrl,
-                              endadr: chgUrl,
-                              keyBody: 'charging_pile')
-                          .Posting();
-                      _networkProvider.currentGoal = '충전스테이션';
-                      _networkProvider.servingDone = true;
-                      navPage(
-                              context: context,
-                              page: NavigatorModule(),
-                              enablePop: true)
-                          .navPageToPage();
-                      _servingProvider.initServing();
-                    } else {
-                      PostApi(
-                              url: startUrl,
-                              endadr: navUrl,
-                              keyBody:
-                                  'serving_${tableDestinations[0].toString()}')
-                          .Posting();
-                      _networkProvider.currentGoal =
-                          '${tableDestinations[0].toString()}번 테이블';
-
-                      navPage(
-                              context: context,
-                              page: NavigatorModule(),
-                              enablePop: true)
-                          .navPageToPage();
-                    }
-                  },
-                  buttonWidth: buttonWidth,
-                  buttonHeight: buttonHeight,
-                  buttonText: '완료',
-                  buttonFont: buttonFont,
-                  buttonColor: Color.fromRGBO(45, 45, 45, 45),
-                  screenWidth: screenWidth,
-                  screenHeight: screenHeight,
-                ),
-              )
             ])));
   }
 }
+
+
+
+
+
+
+
+
+
+// 도착완료 시나리오 ( 모든 선반 / 개별 선반 )
+//if(_servingProvider.trayCheckAll == true)
+//                           Column(
+//                           children: [
+//                             Text('주문 하신 $itemName 나왔습니다.', style: textFont1),
+//                             SizedBox(
+//                               height: screenHeight * 0.05,
+//                             ),
+//                             Text('선반에서 상품을 수령 하신 후', style: textFont1),
+//                             Text('완료 버튼을 눌러주세요.', style: textFont1),
+//                             SizedBox(
+//                               height: screenHeight * 0.04,
+//                             ),
+//                           ],
+//                         )
+//                         else
+//                           Column(
+//                             children: [
+//                               Text('주문 하신 $itemName 나왔습니다.', style: textFont1),
+//                               SizedBox(
+//                                 height: screenHeight * 0.05,
+//                               ),
+//                               Text('$trayName번 선반에서', style: textFont1),
+//                               Text('상품을 수령 하신 후', style: textFont1),
+//                               Text('완료 버튼을 눌러주세요.', style: textFont1),
+//                               SizedBox(
+//                                 height: screenHeight * 0.04,
+//                               ),
+//                             ],
+//                           ),
+
+
+
+
+// 완료 버튼
+// Positioned(
+//                 left: screenWidth * 0.325,
+//                 top: screenHeight * 0.55,
+//                 child: ServingButtons(
+//                   onPressed: () {
+//
+//                     _servingProvider.playAd = false;
+//
+//                     if (tableDestinations.length > 1) {
+//                       itemDestinations.removeAt(0);
+//                       tableDestinations.removeAt(0);
+//                       trayDestinations.removeAt(0);
+//                     } else {
+//                       tableDestinations.clear();
+//                       itemDestinations.clear();
+//                       trayDestinations.clear();
+//                     }
+//                     _servingProvider.itemList = itemDestinations;
+//                     _servingProvider.tableList = tableDestinations;
+//                     _servingProvider.trayList = trayDestinations;
+//                     print(_servingProvider.itemList);
+//                     print(_servingProvider.tableList);
+//                     print(_servingProvider.trayList);
+//
+//                     if (_servingProvider.tableList!.length == 0) {
+//                       PostApi(
+//                               url: startUrl,
+//                               endadr: chgUrl,
+//                               keyBody: 'charging_pile')
+//                           .Posting();
+//                       _networkProvider.currentGoal = '충전스테이션';
+//                       _networkProvider.servingDone = true;
+//                       navPage(
+//                               context: context,
+//                               page: NavigatorModule(),
+//                               enablePop: true)
+//                           .navPageToPage();
+//                       _servingProvider.initServing();
+//                     } else {
+//                       PostApi(
+//                               url: startUrl,
+//                               endadr: navUrl,
+//                               keyBody:
+//                                   'serving_${tableDestinations[0].toString()}')
+//                           .Posting();
+//                       _networkProvider.currentGoal =
+//                           '${tableDestinations[0].toString()}번 테이블';
+//
+//                       navPage(
+//                               context: context,
+//                               page: NavigatorModule(),
+//                               enablePop: true)
+//                           .navPageToPage();
+//                     }
+//                   },
+//                   buttonWidth: buttonWidth,
+//                   buttonHeight: buttonHeight,
+//                   buttonText: '완료',
+//                   buttonFont: buttonFont,
+//                   buttonColor: Color.fromRGBO(45, 45, 45, 45),
+//                   screenWidth: screenWidth,
+//                   screenHeight: screenHeight,
+//                 ),
+//               )

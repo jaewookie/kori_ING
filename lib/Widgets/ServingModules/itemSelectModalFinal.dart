@@ -5,7 +5,7 @@ import 'package:kori_test_refactoring/Providers/NetworkModel.dart';
 import 'package:kori_test_refactoring/Widgets/OrderedMenuButtons.dart';
 import 'package:kori_test_refactoring/Widgets/ServingModules/tableSelectModal.dart';
 import 'package:kori_test_refactoring/screens/modules/mainScreenButtons.dart';
-import 'package:kori_test_refactoring/screens/modules/mainScreenButtonsFinal.dart';
+import 'package:kori_test_refactoring/screens/modules/ServingModuleButtonsFinal.dart';
 import 'package:provider/provider.dart';
 
 import '../../Providers/ServingModel.dart';
@@ -155,8 +155,8 @@ class _SelectItemModalFinalState extends State<SelectItemModalFinal> {
                   ),
                 ],
               ),
-              FinalMainScreenButtons(
-                screens: 3,
+              ServingModuleButtonsFinal(
+                screens: 1,
               ),
               Positioned(
                 left: 310 * 0.75,

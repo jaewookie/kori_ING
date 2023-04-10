@@ -23,19 +23,20 @@ import 'package:kori_test_refactoring/screens/modules/Service/serving_final/Tray
 import 'package:kori_test_refactoring/screens/modules/Service/shipping/ShippingMenu.dart';
 import 'package:provider/provider.dart';
 
-class FinalMainScreenButtons extends StatefulWidget {
+class ServingModuleButtonsFinal extends StatefulWidget {
   final int? screens;
 
-  const FinalMainScreenButtons({
+  const ServingModuleButtonsFinal({
     Key? key,
     this.screens,
   }) : super(key: key);
 
   @override
-  State<FinalMainScreenButtons> createState() => _FinalMainScreenButtonsState();
+  State<ServingModuleButtonsFinal> createState() =>
+      _ServingModuleButtonsFinalState();
 }
 
-class _FinalMainScreenButtonsState extends State<FinalMainScreenButtons> {
+class _ServingModuleButtonsFinalState extends State<ServingModuleButtonsFinal> {
   // late NetworkModel _networkProvider;
   late ServingModel _servingProvider;
 
@@ -129,7 +130,7 @@ class _FinalMainScreenButtonsState extends State<FinalMainScreenButtons> {
         });
   }
 
-  void showCountDownPopup(context){
+  void showCountDownPopup(context) {
     showDialog(
         barrierDismissible: false,
         context: context,
@@ -156,7 +157,7 @@ class _FinalMainScreenButtonsState extends State<FinalMainScreenButtons> {
         });
   }
 
-  void showCheckingPopup(context){
+  void showCheckingPopup(context) {
     showDialog(
         barrierDismissible: false,
         context: context,
@@ -194,22 +195,6 @@ class _FinalMainScreenButtonsState extends State<FinalMainScreenButtons> {
     itemName = _servingProvider.menuItem;
 
     if (widget.screens == 0) {
-      // 메인 화면
-      buttonPositionWidth = [121, 747, 121, 747];
-      buttonPositionHeight = [400, 400, 1021, 1021];
-
-      buttonSize = [570, 565];
-
-      buttonRadius = 30;
-    } else if (widget.screens == 1) {
-      // 서비스 선택화면
-      buttonPositionWidth = [121, 121, 121];
-      buttonPositionHeight = [400, 723, 1046];
-
-      buttonSize = [1198, 256];
-
-      buttonRadius = 30;
-    } else if (widget.screens == 2) {
       // 서빙화면(주문하기 및 서빙시작)
       buttonPositionWidth = [109, 757];
       buttonPositionHeight = [225, 225];
@@ -217,7 +202,7 @@ class _FinalMainScreenButtonsState extends State<FinalMainScreenButtons> {
       buttonSize = [570, 220];
 
       buttonRadius = 30;
-    } else if (widget.screens == 3) {
+    } else if (widget.screens == 1) {
       // 서빙 상품 선택 화면
       buttonPositionWidth = [100, 688, 100, 688];
       buttonPositionHeight = [600, 600, 1180, 1180];
@@ -225,7 +210,7 @@ class _FinalMainScreenButtonsState extends State<FinalMainScreenButtons> {
       buttonSize = [545, 545];
 
       buttonRadius = 30;
-    } else if (widget.screens == 4) {
+    } else if (widget.screens == 2) {
       // 서빙 테이블 선택 화면
       buttonPositionWidth = [254, 254, 254, 254, 788, 788, 788, 788];
       buttonPositionHeight = [515, 964, 1390, 1822, 515, 964, 1390, 1822];
@@ -233,20 +218,28 @@ class _FinalMainScreenButtonsState extends State<FinalMainScreenButtons> {
       buttonSize = [292, 167];
 
       buttonRadius = 0;
-    } else if (widget.screens == 5) {
-      // 서빙 테이블 선택 화면
+    } else if (widget.screens == 3) {
+      // 주문표 버전 선택 화면
       buttonPositionWidth = [70, 688, 70, 688, 70, 688, 70, 688];
       buttonPositionHeight = [444, 444, 872, 872, 1300, 1300, 1728, 1728];
 
       buttonSize = [570, 378];
 
       buttonRadius = 50;
-    } else if (widget.screens == 6) {
-      // 서빙 테이블 선택 화면
+    } else if (widget.screens == 4) {
+      // 팝업 ( 추가 여부 / 카운트다운 )
       buttonPositionWidth = [70, 695];
       buttonPositionHeight = [327, 327];
 
       buttonSize = [565, 194];
+
+      buttonRadius = 50;
+    } else if (widget.screens == 5) {
+      // 완료 화면
+      buttonPositionWidth = [143];
+      buttonPositionHeight = [1308];
+
+      buttonSize = [1155, 230];
 
       buttonRadius = 50;
     }
@@ -283,146 +276,110 @@ class _FinalMainScreenButtonsState extends State<FinalMainScreenButtons> {
                     buttonSize[buttonHeight] * pixelRatio)),
             onPressed: widget.screens == 0
                 ? () {
-                    navPage(
-                            context: context,
-                            page: screenList[i],
-                            enablePop: true)
-                        .navPageToPage();
-                    // _networkProvider.serviceState = i;
+                    if (i == 0) {
+                      showOrderPopup(context);
+                    } else {
+                      _servingProvider.trayCheckAll = true;
+                      // _servingProvider.servingBeginningIsNot=true;
+                      showTableSelectPopup(context);
+                      _servingProvider.menuItem = "상품";
+                    }
                   }
                 : widget.screens == 1
                     ? () {
-                        if (i == 0) {
-                          navPage(
-                                  context: context,
-                                  page: serviceList[i],
-                                  enablePop: true)
-                              .navPageToPage();
-                        } else if (i == 1) {
-                          navPage(
-                                  context: context,
-                                  page: serviceList[i],
-                                  enablePop: true)
-                              .navPageToPage();
-                        } else {
-                          navPage(
-                                  context: context,
-                                  page: serviceList[i],
-                                  enablePop: true)
-                              .navPageToPage();
+                        setState(() {
+                          if (i == 0) {
+                            _servingProvider.menuItem = menuItems[i];
+                          } else if (i == 1) {
+                            _servingProvider.menuItem = menuItems[i];
+                          } else if (i == 2) {
+                            _servingProvider.menuItem = menuItems[i];
+                          } else {
+                            _servingProvider.menuItem = menuItems[i];
+                          }
+                        });
+                        if (_servingProvider.tray1Select == true) {
+                          _servingProvider.setItemTray1();
+                        } else if (_servingProvider.tray2Select == true) {
+                          _servingProvider.setItemTray2();
+                        } else if (_servingProvider.tray3Select == true) {
+                          _servingProvider.setItemTray3();
                         }
+                        Navigator.pop(context);
+                        showTableSelectPopup(context);
                       }
                     : widget.screens == 2
                         ? () {
-                            if (i == 0) {
-                              showOrderPopup(context);
-                            } else {
-                              _servingProvider.trayCheckAll = true;
-                              // _servingProvider.servingBeginningIsNot=true;
-                              showTableSelectPopup(context);
-                              _servingProvider.menuItem = "상품";
-                            }
-                          }
-                        : widget.screens == 3
-                            ? () {
-                                setState(() {
-                                  if (i == 0) {
-                                    _servingProvider.menuItem = menuItems[i];
-                                  } else if (i == 1) {
-                                    _servingProvider.menuItem = menuItems[i];
-                                  } else if (i == 2) {
-                                    _servingProvider.menuItem = menuItems[i];
-                                  } else {
-                                    _servingProvider.menuItem = menuItems[i];
-                                  }
-                                });
+                            print(_servingProvider.trayCheckAll);
+                            setState(() {
+                              _servingProvider.tableNumber = "${i + 1}";
+                              if (_servingProvider.trayCheckAll == false) {
                                 if (_servingProvider.tray1Select == true) {
-                                  _servingProvider.setItemTray1();
+                                  _servingProvider.table1 = "${i + 1}";
                                 } else if (_servingProvider.tray2Select ==
                                     true) {
-                                  _servingProvider.setItemTray2();
+                                  _servingProvider.table2 = "${i + 1}";
                                 } else if (_servingProvider.tray3Select ==
                                     true) {
-                                  _servingProvider.setItemTray3();
+                                  _servingProvider.table3 = "${i + 1}";
                                 }
-                                Navigator.pop(context);
-                                showTableSelectPopup(context);
+                              } else {
+                                _servingProvider.setTrayAll();
+                                _servingProvider.tableNumber = "${i + 1}";
                               }
-                            : widget.screens == 4
-                                ? () {
-                                    print(_servingProvider.trayCheckAll);
-                                    setState(() {
-                                      _servingProvider.tableNumber = "${i + 1}";
-                                      if (_servingProvider.trayCheckAll ==
-                                          false) {
-                                        if (_servingProvider.tray1Select ==
-                                            true) {
-                                          _servingProvider.table1 = "${i + 1}";
-                                        } else if (_servingProvider
-                                                .tray2Select ==
-                                            true) {
-                                          _servingProvider.table2 = "${i + 1}";
-                                        } else if (_servingProvider
-                                                .tray3Select ==
-                                            true) {
-                                          _servingProvider.table3 = "${i + 1}";
-                                        }
-                                      } else {
-                                        _servingProvider.setTrayAll();
+                            });
+                            uploadTableNumberNItemImg();
+                            showCheckingPopup(context);
+                          }
+                        : widget.screens == 3
+                            ? receiptMenu[i] == '미주문'
+                                ? null
+                                : () {
+                                    if (receiptMenu[i] != '미주문') {
+                                      setState(() {
+                                        _servingProvider.menuItem =
+                                            receiptMenu[i];
                                         _servingProvider.tableNumber =
                                             "${i + 1}";
-                                      }
-                                    });
+                                      });
+                                    }
+                                    if (_servingProvider.tray1Select == true) {
+                                      _servingProvider.setTray1();
+                                    } else if (_servingProvider.tray2Select ==
+                                        true) {
+                                      _servingProvider.setTray2();
+                                    } else if (_servingProvider.tray3Select ==
+                                        true) {
+                                      _servingProvider.setTray3();
+                                    }
                                     uploadTableNumberNItemImg();
-                                    showCheckingPopup(context);
+                                    print("asdfasdfasdfasdf");
+                                    print(_servingProvider.tray1Select);
+                                    print(_servingProvider.tray2Select);
+                                    print(_servingProvider.tray3Select);
+                                    print("asdfasdfasdfasdf");
+                                    showTrayStatusPopup(context);
+                                  }
+                            : widget.screens == 4
+                                ? () {
+                                    if (i == 0) {
+                                      showCheckingPopup(context);
+                                      // Navigator.pop(context);
+                                      // Navigator.pop(context);
+                                    } else {
+                                      showCountDownPopup(context);
+                                    }
                                   }
                                 : widget.screens == 5
-                                    ? receiptMenu[i] == '미주문'
-                                        ? null
-                                        : () {
-                                            if (receiptMenu[i] != '미주문') {
-                                              setState(() {
-                                                _servingProvider.menuItem =
-                                                    receiptMenu[i];
-                                                _servingProvider.tableNumber =
-                                                    "${i + 1}";
-                                              });
-                                            }
-                                            if (_servingProvider
-                                                .tray1Select ==
-                                                true) {
-                                              _servingProvider.setTray1();
-                                            } else if (_servingProvider
-                                                .tray2Select ==
-                                                true) {
-                                              _servingProvider.setTray2();
-                                            } else if (_servingProvider
-                                                .tray3Select ==
-                                                true) {
-                                              _servingProvider.setTray3();
-                                            }
-                                            uploadTableNumberNItemImg();
-                                            print("asdfasdfasdfasdf");
-                                            print(_servingProvider
-                                                .tray1Select);
-                                            print(_servingProvider
-                                                .tray2Select);
-                                            print(_servingProvider
-                                                .tray3Select);
-                                            print("asdfasdfasdfasdf");
-                                            showTrayStatusPopup(context);
-                                          }
-                                    : widget.screens == 6
-                                        ? () {
-              if(i==0){
-                showCheckingPopup(context);
-                // Navigator.pop(context);
-                // Navigator.pop(context);
-              }else{
-                showCountDownPopup(context);
-              }
-                                          }
-                                        : null,
+                                    ? () {
+                                        _servingProvider.clearAllTray();
+                                        navPage(
+                                                context: context,
+                                                page: TraySelectionFinal(),
+                                                enablePop: false)
+                                            .navPageToPage();
+                                      }
+                                    : null,
             child: null,
           ),
         ),

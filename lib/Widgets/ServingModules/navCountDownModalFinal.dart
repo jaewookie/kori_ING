@@ -4,6 +4,7 @@ import 'package:kori_test_refactoring/Providers/ServingModel.dart';
 import 'package:kori_test_refactoring/Utills/navScreens.dart';
 import 'package:kori_test_refactoring/Utills/postAPI.dart';
 import 'package:kori_test_refactoring/Widgets/NavigatorModule.dart';
+import 'package:kori_test_refactoring/Widgets/NavigatorPauseModuleFinal.dart';
 import 'package:kori_test_refactoring/Widgets/ServingModules/TrayStatusModalFinal.dart';
 import 'package:kori_test_refactoring/screens/modules/Service/serving3/TraySelection3.dart';
 import 'package:kori_test_refactoring/screens/modules/Service/serving_final/TraySelectionFinal.dart';
@@ -66,7 +67,7 @@ class _NavCountDownModalFinalState extends State<NavCountDownModalFinal> {
                         BorderRadius.circular(0)),
                     fixedSize: Size(362*0.75, 128*0.75)),
                 onPressed: (){
-                  navPage(context: context, page: NavigatorModule(), enablePop: false).navPageToPage();
+                  navPage(context: context, page: NavigatorPauseModuleFinal(), enablePop: false).navPageToPage();
                 },
                 child: null,
               ),

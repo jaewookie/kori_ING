@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:kori_test_refactoring/Utills/navScreens.dart';
 
 import 'package:kori_test_refactoring/screens/MainScreenFinal.dart';
-import 'package:kori_test_refactoring/screens/modules/mainScreenButtonsFinal.dart';
+import 'package:kori_test_refactoring/screens/modules/MainScreenButtonsFinal.dart';
+import 'package:kori_test_refactoring/screens/modules/ServingModuleButtonsFinal.dart';
 import 'package:provider/provider.dart';
 
 class ServiceScreenFinal extends StatefulWidget {
@@ -107,7 +108,7 @@ class _ServiceScreenFinalState extends State<ServiceScreenFinal> with TickerProv
                   image: DecorationImage(image: AssetImage(_wallpape))),
               child: Container(),
             ),
-            FinalMainScreenButtons(screens: 1),
+            MainScreenButtonsFinal(screens: 1),
             Positioned(
                 left: 670 * pixelRatio,
                 top: 1829 * pixelRatio,
