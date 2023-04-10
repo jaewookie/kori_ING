@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:kori_test_refactoring/Providers/NetworkModel.dart';
+// import 'package:kori_test_refactoring/Providers/NetworkModel.dart';
 import 'package:kori_test_refactoring/screens/modules/mainScreenButtonsFinal.dart';
 import 'package:provider/provider.dart';
 
@@ -14,10 +14,10 @@ class MainScreenFinal extends StatefulWidget {
 }
 
 class _MainScreenFinalState extends State<MainScreenFinal> with TickerProviderStateMixin {
-  late NetworkModel _networkProvider;
+  // late NetworkModel _networkProvider;
 
-  dynamic newPoseData;
-  dynamic poseData;
+  // dynamic newPoseData;
+  // dynamic poseData;
 
   DateTime? currentBackPressTime;
   final String _text = "뒤로가기 버튼을 한 번 더 누르시면 앱이 종료됩니다.";
@@ -48,15 +48,15 @@ class _MainScreenFinalState extends State<MainScreenFinal> with TickerProviderSt
     fToast = FToast();
     fToast?.init(context);
 
-    poseDataUpdate(widget.parsePoseData);
+    // poseDataUpdate(widget.parsePoseData);
   }
 
-  void poseDataUpdate(dynamic parsePoseData) {
-    newPoseData = parsePoseData;
-    if (newPoseData != null) {
-      poseData = newPoseData;
-    }
-  }
+  // void poseDataUpdate(dynamic parsePoseData) {
+  //   newPoseData = parsePoseData;
+  //   if (newPoseData != null) {
+  //     poseData = newPoseData;
+  //   }
+  // }
 
   @override
   void dispose() {
@@ -67,16 +67,16 @@ class _MainScreenFinalState extends State<MainScreenFinal> with TickerProviderSt
 
   @override
   Widget build(BuildContext context) {
-    _networkProvider = Provider.of<NetworkModel>(context, listen: false);
+    // _networkProvider = Provider.of<NetworkModel>(context, listen: false);
 
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
-    if (poseData == null) {
-      poseData = _networkProvider.getPoseData;
-    }
-
-    _networkProvider.getPoseData = poseData;
+    // if (poseData == null) {
+    //   poseData = _networkProvider.getPoseData;
+    // }
+    //
+    // _networkProvider.getPoseData = poseData;
 
     return WillPopScope(
       onWillPop: () async {

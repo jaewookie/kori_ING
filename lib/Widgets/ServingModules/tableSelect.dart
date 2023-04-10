@@ -114,7 +114,7 @@ class _TableSelectImgState extends State<TableSelectImg> {
           item1 = _servingProvider.item1;
           item2 = _servingProvider.item2;
           item3 = _servingProvider.item3;
-          
+
           startUrl = _networkProvider.startUrl;
           navUrl = _networkProvider.navUrl;
 

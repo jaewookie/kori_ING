@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:kori_test_refactoring/Providers/NetworkModel.dart';
+// import 'package:kori_test_refactoring/Providers/NetworkModel.dart';
 import 'package:kori_test_refactoring/Providers/ServingModel.dart';
 import 'package:kori_test_refactoring/Utills/navScreens.dart';
 import 'package:kori_test_refactoring/Widgets/ServingModules/itemOrderModal.dart';
 import 'package:kori_test_refactoring/Widgets/ServingModules/itemSelectModal.dart';
+import 'package:kori_test_refactoring/Widgets/ServingModules/itemSelectModalFinal.dart';
 import 'package:kori_test_refactoring/Widgets/ServingModules/receiptModal.dart';
+import 'package:kori_test_refactoring/Widgets/ServingModules/receiptModalFinal.dart';
 import 'package:kori_test_refactoring/Widgets/ServingModules/tableSelectModal.dart';
 import 'package:kori_test_refactoring/screens/ServiceScreenFinal.dart';
 import 'package:kori_test_refactoring/screens/modules/mainScreenButtonsFinal.dart';
@@ -20,7 +22,7 @@ class TraySelectionFinal extends StatefulWidget {
 }
 
 class _TraySelectionFinalState extends State<TraySelectionFinal> {
-  late NetworkModel _networkProvider;
+  // late NetworkModel _networkProvider;
   late ServingModel _servingProvider;
 
   String? tableNumber;
@@ -101,9 +103,9 @@ class _TraySelectionFinalState extends State<TraySelectionFinal> {
         context: context,
         builder: (context) {
           if (receiptModeOn == true) {
-            return SelectReceiptModal();
+            return SelectReceiptModalFinal();
           } else {
-            return SelectItemModal();
+            return SelectItemModalFinal();
           }
         });
   }
@@ -128,7 +130,7 @@ class _TraySelectionFinalState extends State<TraySelectionFinal> {
 
   @override
   Widget build(BuildContext context) {
-    _networkProvider = Provider.of<NetworkModel>(context, listen: false);
+    // _networkProvider = Provider.of<NetworkModel>(context, listen: false);
     _servingProvider = Provider.of<ServingModel>(context, listen: false);
 
     itemName = _servingProvider.menuItem;
@@ -152,8 +154,8 @@ class _TraySelectionFinalState extends State<TraySelectionFinal> {
     item2 = _servingProvider.item2;
     item3 = _servingProvider.item3;
 
-    startUrl = _networkProvider.startUrl;
-    navUrl = _networkProvider.navUrl;
+    // startUrl = _networkProvider.startUrl;
+    // navUrl = _networkProvider.navUrl;
 
     print(_servingProvider.itemImageList);
 
@@ -416,6 +418,7 @@ class _TraySelectionFinalState extends State<TraySelectionFinal> {
                                 fixedSize:
                                     Size(textButtonWidth, textButtonHeight),
                                 shape: RoundedRectangleBorder(
+                                  side: BorderSide(color: Colors.green, width: 1),
                                   borderRadius: BorderRadius.circular(20)))),
                       ),
                     ],
@@ -476,6 +479,7 @@ class _TraySelectionFinalState extends State<TraySelectionFinal> {
                                 fixedSize:
                                 Size(textButtonWidth, textButtonHeight),
                                 shape: RoundedRectangleBorder(
+                                    side: BorderSide(color: Colors.green, width: 1),
                                     borderRadius: BorderRadius.circular(20))))
                       ),
                     ],
@@ -536,6 +540,7 @@ class _TraySelectionFinalState extends State<TraySelectionFinal> {
                                 fixedSize:
                                 Size(textButtonWidth, textButtonHeight),
                                 shape: RoundedRectangleBorder(
+                                    side: BorderSide(color: Colors.green, width: 1),
                                     borderRadius: BorderRadius.circular(20))))
                       ),
                     ],

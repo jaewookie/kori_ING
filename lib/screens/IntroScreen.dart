@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:kori_test_refactoring/Providers/NetworkModel.dart';
-import 'package:kori_test_refactoring/Utills/callApi.dart';
+// import 'package:kori_test_refactoring/Providers/NetworkModel.dart';
+// import 'package:kori_test_refactoring/Utills/callApi.dart';
 import 'package:kori_test_refactoring/Utills/navScreens.dart';
 import 'package:kori_test_refactoring/screens/MainScreenFinal.dart';
-import 'package:provider/provider.dart';
+// import 'package:provider/provider.dart';
 
 import 'package:video_player/video_player.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -19,10 +19,11 @@ class IntroScreen extends StatefulWidget {
 
 class _IntroScreenState extends State<IntroScreen>
     with TickerProviderStateMixin {
-  late NetworkModel _networkProvider;
+  // late NetworkModel _networkProvider;
 
-  String positionURL = "";
-  String hostAdr = "";
+  //
+  // String positionURL = "";
+  // String hostAdr = "";
 
   late VideoPlayerController _controller;
   late AudioPlayer _audioPlayer;
@@ -91,30 +92,30 @@ class _IntroScreenState extends State<IntroScreen>
     // print('-------------VIDEO END-------------');
     _playAudio();
     await Future.delayed(Duration(milliseconds: 500));
-    _networkProvider.hostIP();
+    // _networkProvider.hostIP();
     setState(() {
       updateComplete = true;
     });
   }
 
-  dynamic getting(String hostUrl, String endUrl) async {
-    String hostIP = hostUrl;
-    String endPoint = endUrl;
-
-    String apiAddress = hostIP + endPoint;
-
-    NetworkGet network = NetworkGet(apiAddress);
-
-    dynamic getApiData = await network.getAPI();
-
-    navPage(
-            context: context,
-            page: MainScreenFinal(
-              parsePoseData: getApiData,
-            ),
-            enablePop: true)
-        .navPageToPage();
-  }
+  // dynamic getting(String hostUrl, String endUrl) async {
+  //   String hostIP = hostUrl;
+  //   String endPoint = endUrl;
+  //
+  //   String apiAddress = hostIP + endPoint;
+  //
+  //   NetworkGet network = NetworkGet(apiAddress);
+  //
+  //   dynamic getApiData = await network.getAPI();
+  //
+  //   navPage(
+  //           context: context,
+  //           page: MainScreenFinal(
+  //             parsePoseData: getApiData,
+  //           ),
+  //           enablePop: true)
+  //       .navPageToPage();
+  // }
 
   @override
   void dispose() {
@@ -126,10 +127,10 @@ class _IntroScreenState extends State<IntroScreen>
 
   @override
   Widget build(BuildContext context) {
-    _networkProvider = Provider.of<NetworkModel>(context, listen: false);
+    // _networkProvider = Provider.of<NetworkModel>(context, listen: false);
 
-    hostAdr = _networkProvider.startUrl;
-    positionURL = _networkProvider.positionURL;
+    // hostAdr = _networkProvider.startUrl;
+    // positionURL = _networkProvider.positionURL;
 
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
@@ -182,7 +183,16 @@ class _IntroScreenState extends State<IntroScreen>
       child: GestureDetector(
         // 스크린 터치시 화면 이동을 위한 위젯
         onTap: () {
-          updateComplete == true ? getting(hostAdr, positionURL) : null;
+          updateComplete == true
+              ? navPage(
+                      context: context,
+                      page: MainScreenFinal(
+                          // parsePoseData: getApiData,
+                          ),
+                      enablePop: true)
+                  .navPageToPage()
+              // getting(hostAdr, positionURL)
+              : null;
         },
         child: Center(
           child: Scaffold(

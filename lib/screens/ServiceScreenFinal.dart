@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:kori_test_refactoring/Providers/NetworkModel.dart';
+// import 'package:kori_test_refactoring/Providers/NetworkModel.dart';
 
 import 'package:kori_test_refactoring/Utills/navScreens.dart';
 
@@ -18,11 +18,11 @@ class ServiceScreenFinal extends StatefulWidget {
 }
 
 class _ServiceScreenFinalState extends State<ServiceScreenFinal> with TickerProviderStateMixin {
-  late NetworkModel _networkProvider;
+  // late NetworkModel _networkProvider;
 
   String? currentGoal;
 
-  dynamic poseData;
+  // dynamic poseData;
 
   final String _wallpape = "final_assets/screens/koriZFinalService.png";
   final String _fingerIcon = "final_assets/icons/pushIcon.png";
@@ -50,12 +50,12 @@ class _ServiceScreenFinalState extends State<ServiceScreenFinal> with TickerProv
 
   @override
   Widget build(BuildContext context) {
-    _networkProvider = Provider.of<NetworkModel>(context, listen: false);
+    // _networkProvider = Provider.of<NetworkModel>(context, listen: false);
 
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
-    poseData = _networkProvider.getPoseData;
+    // poseData = _networkProvider.getPoseData;
 
     return WillPopScope(
       onWillPop: () async {
