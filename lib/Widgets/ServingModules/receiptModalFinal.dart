@@ -158,6 +158,18 @@ class _SelectReceiptModalFinalState extends State<SelectReceiptModalFinal> {
                 ),
               )),
           Positioned(
+              left: 290 * 0.75,
+              top: 170 * 0.75,
+              child: Container(
+                width: 600,
+                height: 80,
+                // color: Colors.white,
+                // decoration: BoxDecoration(
+                //   border: Border.fromBorderSide(BorderSide(color: Colors.white, width: 1))
+                // ),
+                child: Text('주문서를 선택 해 주세요', style: TextStyle(fontFamily: 'kor', color: Color(0xffffffff), fontSize: 60, fontWeight: FontWeight.bold),)
+              )),
+          Positioned(
             child: FinalMainScreenButtons(screens: 5,),)
         ]),
       ),
