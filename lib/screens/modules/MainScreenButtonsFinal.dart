@@ -1,18 +1,6 @@
 import 'package:flutter/material.dart';
 
-// import 'package:kori_test_refactoring/Providers/NetworkModel.dart';
-import 'package:kori_test_refactoring/Providers/ServingModel.dart';
 import 'package:kori_test_refactoring/Utills/navScreens.dart';
-
-// import 'package:kori_test_refactoring/Utills/postAPI.dart';
-import 'package:kori_test_refactoring/Widgets/NavigatorModule.dart';
-import 'package:kori_test_refactoring/Widgets/ServingModules/TrayStatusModalFinal.dart';
-import 'package:kori_test_refactoring/Widgets/ServingModules/itemOrderModal.dart';
-import 'package:kori_test_refactoring/Widgets/ServingModules/navCountDownModalFinal.dart';
-import 'package:kori_test_refactoring/Widgets/ServingModules/showCheckingModal.dart';
-import 'package:kori_test_refactoring/Widgets/ServingModules/tableSelectModal.dart';
-import 'package:kori_test_refactoring/Widgets/ServingModules/tableSelectModalFinal.dart';
-import 'package:kori_test_refactoring/Widgets/ServingModules/trayCheckingModalFinal.dart';
 
 import 'package:kori_test_refactoring/screens/AdminScreen.dart';
 import 'package:kori_test_refactoring/screens/ConfigScreen.dart';
@@ -21,7 +9,6 @@ import 'package:kori_test_refactoring/screens/ServiceScreenFinal.dart';
 import 'package:kori_test_refactoring/screens/modules/Service/hotel/HotelServiceMenu.dart';
 import 'package:kori_test_refactoring/screens/modules/Service/serving_final/TraySelectionFinal.dart';
 import 'package:kori_test_refactoring/screens/modules/Service/shipping/ShippingMenu.dart';
-import 'package:provider/provider.dart';
 
 class MainScreenButtonsFinal extends StatefulWidget {
   final int? screens;
@@ -105,7 +92,7 @@ class _MainScreenButtonsFinalState extends State<MainScreenButtonsFinal> {
             style: FilledButton.styleFrom(
                 backgroundColor: Colors.transparent,
                 shape: RoundedRectangleBorder(
-                    side: BorderSide(width: 1, color: Colors.redAccent),
+                    // side: BorderSide(width: 1, color: Colors.redAccent),
                     borderRadius:
                         BorderRadius.circular(buttonRadius * pixelRatio)),
                 fixedSize: Size(buttonSize[buttonWidth] * pixelRatio,

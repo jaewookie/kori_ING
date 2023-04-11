@@ -1,14 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kori_test_refactoring/Providers/NetworkModel.dart';
-import 'package:kori_test_refactoring/Providers/ServingModel.dart';
 import 'package:kori_test_refactoring/Utills/navScreens.dart';
-import 'package:kori_test_refactoring/Utills/postAPI.dart';
-import 'package:kori_test_refactoring/Widgets/NavigatorModule.dart';
 import 'package:kori_test_refactoring/Widgets/NavigatorPauseModuleFinal.dart';
-import 'package:kori_test_refactoring/Widgets/ServingModules/TrayStatusModalFinal.dart';
-import 'package:kori_test_refactoring/screens/modules/Service/serving3/TraySelection3.dart';
-import 'package:kori_test_refactoring/screens/modules/Service/serving_final/TraySelectionFinal.dart';
-import 'package:provider/provider.dart';
 
 class NavCountDownModalFinal extends StatefulWidget {
   const NavCountDownModalFinal({Key? key}) : super(key: key);
@@ -44,7 +36,7 @@ class _NavCountDownModalFinalState extends State<NavCountDownModalFinal> {
                 style: FilledButton.styleFrom(
                     backgroundColor: Colors.transparent,
                     shape: RoundedRectangleBorder(
-                        side: BorderSide(width: 1, color: Colors.redAccent),
+                        // side: BorderSide(width: 1, color: Colors.redAccent),
                         borderRadius:
                         BorderRadius.circular(0)),
                     fixedSize: Size(362*0.75, 128*0.75)),
@@ -62,7 +54,7 @@ class _NavCountDownModalFinalState extends State<NavCountDownModalFinal> {
                 style: FilledButton.styleFrom(
                     backgroundColor: Colors.transparent,
                     shape: RoundedRectangleBorder(
-                        side: BorderSide(width: 1, color: Colors.redAccent),
+                        // side: BorderSide(width: 1, color: Colors.redAccent),
                         borderRadius:
                         BorderRadius.circular(0)),
                     fixedSize: Size(362*0.75, 128*0.75)),

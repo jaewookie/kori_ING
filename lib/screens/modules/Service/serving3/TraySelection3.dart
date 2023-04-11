@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kori_test_refactoring/Providers/NetworkModel.dart';
 import 'package:kori_test_refactoring/Providers/ServingModel.dart';
 import 'package:kori_test_refactoring/Utills/navScreens.dart';
-import 'package:kori_test_refactoring/Widgets/ServingModules/itemOrderModal.dart';
+import 'package:kori_test_refactoring/Widgets/OrderModules/itemOrderModal.dart';
 import 'package:kori_test_refactoring/Widgets/ServingModules/itemSelectModal.dart';
 import 'package:kori_test_refactoring/Widgets/ServingModules/receiptModal.dart';
 import 'package:kori_test_refactoring/Widgets/ServingModules/tableSelectModal.dart';

@@ -1,28 +1,5 @@
 import 'package:flutter/material.dart';
 
-// import 'package:kori_test_refactoring/Providers/NetworkModel.dart';
-import 'package:kori_test_refactoring/Providers/ServingModel.dart';
-import 'package:kori_test_refactoring/Utills/navScreens.dart';
-
-// import 'package:kori_test_refactoring/Utills/postAPI.dart';
-import 'package:kori_test_refactoring/Widgets/NavigatorModule.dart';
-import 'package:kori_test_refactoring/Widgets/ServingModules/TrayStatusModalFinal.dart';
-import 'package:kori_test_refactoring/Widgets/ServingModules/itemOrderModal.dart';
-import 'package:kori_test_refactoring/Widgets/ServingModules/navCountDownModalFinal.dart';
-import 'package:kori_test_refactoring/Widgets/ServingModules/showCheckingModal.dart';
-import 'package:kori_test_refactoring/Widgets/ServingModules/tableSelectModal.dart';
-import 'package:kori_test_refactoring/Widgets/ServingModules/tableSelectModalFinal.dart';
-import 'package:kori_test_refactoring/Widgets/ServingModules/trayCheckingModalFinal.dart';
-
-import 'package:kori_test_refactoring/screens/AdminScreen.dart';
-import 'package:kori_test_refactoring/screens/ConfigScreen.dart';
-import 'package:kori_test_refactoring/screens/LinkConnectorScreen.dart';
-import 'package:kori_test_refactoring/screens/ServiceScreenFinal.dart';
-import 'package:kori_test_refactoring/screens/modules/Service/hotel/HotelServiceMenu.dart';
-import 'package:kori_test_refactoring/screens/modules/Service/serving_final/TraySelectionFinal.dart';
-import 'package:kori_test_refactoring/screens/modules/Service/shipping/ShippingMenu.dart';
-import 'package:provider/provider.dart';
-
 class NavModuleButtonsFinal extends StatefulWidget {
   final int? screens;
 
@@ -63,7 +40,7 @@ class _NavModuleButtonsFinalState extends State<NavModuleButtonsFinal> {
 
       buttonRadius = 30;
     } else if (widget.screens == 1) {
-      // 서비스 선택화면
+      // 서빙 일시 정지
       buttonPositionWidth = [143, 143, 743];
       buttonPositionHeight = [1015, 1291, 1291];
 
@@ -73,45 +50,17 @@ class _NavModuleButtonsFinalState extends State<NavModuleButtonsFinal> {
 
       buttonRadius = 50;
     } else if (widget.screens == 2) {
-      // 서빙화면(주문하기 및 서빙시작)
-      buttonPositionWidth = [109, 757];
-      buttonPositionHeight = [225, 225];
 
-      buttonSize = [570, 220];
-
-      buttonRadius = 30;
     } else if (widget.screens == 3) {
       // 서빙 상품 선택 화면
-      buttonPositionWidth = [100, 688, 100, 688];
-      buttonPositionHeight = [600, 600, 1180, 1180];
 
-      buttonSize = [545, 545];
-
-      buttonRadius = 30;
     } else if (widget.screens == 4) {
       // 서빙 테이블 선택 화면
-      buttonPositionWidth = [254, 254, 254, 254, 788, 788, 788, 788];
-      buttonPositionHeight = [515, 964, 1390, 1822, 515, 964, 1390, 1822];
 
-      buttonSize = [292, 167];
-
-      buttonRadius = 0;
     } else if (widget.screens == 5) {
-      // 서빙 테이블 선택 화면
-      buttonPositionWidth = [70, 688, 70, 688, 70, 688, 70, 688];
-      buttonPositionHeight = [444, 444, 872, 872, 1300, 1300, 1728, 1728];
 
-      buttonSize = [570, 378];
-
-      buttonRadius = 50;
     } else if (widget.screens == 6) {
-      // 서빙 테이블 선택 화면
-      buttonPositionWidth = [70, 695];
-      buttonPositionHeight = [327, 327];
 
-      buttonSize = [565, 194];
-
-      buttonRadius = 50;
     }
 
     buttonNumbers = buttonPositionHeight.length;
@@ -125,7 +74,7 @@ class _NavModuleButtonsFinalState extends State<NavModuleButtonsFinal> {
             style: FilledButton.styleFrom(
                 backgroundColor: Colors.transparent,
                 shape: RoundedRectangleBorder(
-                    side: BorderSide(width: 1, color: Colors.redAccent),
+                    // side: BorderSide(width: 1, color: Colors.redAccent),
                     borderRadius:
                         BorderRadius.circular(buttonRadius * pixelRatio)),
                 fixedSize: widget.screens == 1

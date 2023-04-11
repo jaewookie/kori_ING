@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:kori_test_refactoring/Providers/OrderModel.dart';
 
-// import 'package:kori_test_refactoring/Providers/NetworkModel.dart';
 import 'package:kori_test_refactoring/Providers/ServingModel.dart';
 import 'package:kori_test_refactoring/Utills/navScreens.dart';
 
-// import 'package:kori_test_refactoring/Utills/postAPI.dart';
-import 'package:kori_test_refactoring/Widgets/NavigatorModule.dart';
 import 'package:kori_test_refactoring/Widgets/ServingModules/TrayStatusModalFinal.dart';
-import 'package:kori_test_refactoring/Widgets/ServingModules/itemOrderModal.dart';
+import 'package:kori_test_refactoring/Widgets/OrderModules/itemOrderModalFinal.dart';
 import 'package:kori_test_refactoring/Widgets/ServingModules/navCountDownModalFinal.dart';
-import 'package:kori_test_refactoring/Widgets/ServingModules/showCheckingModal.dart';
-import 'package:kori_test_refactoring/Widgets/ServingModules/tableSelectModal.dart';
 import 'package:kori_test_refactoring/Widgets/ServingModules/tableSelectModalFinal.dart';
 import 'package:kori_test_refactoring/Widgets/ServingModules/trayCheckingModalFinal.dart';
 
@@ -38,7 +34,9 @@ class ServingModuleButtonsFinal extends StatefulWidget {
 
 class _ServingModuleButtonsFinalState extends State<ServingModuleButtonsFinal> {
   // late NetworkModel _networkProvider;
+
   late ServingModel _servingProvider;
+  late OrderModel _orderProvider;
 
   late var screenList = List<Widget>.empty();
   late var serviceList = List<Widget>.empty();
@@ -126,7 +124,7 @@ class _ServingModuleButtonsFinalState extends State<ServingModuleButtonsFinal> {
         barrierDismissible: false,
         context: context,
         builder: (context) {
-          return ItemOrderModal();
+          return ItemOrderModalFinal();
         });
   }
 
@@ -157,6 +155,7 @@ class _ServingModuleButtonsFinalState extends State<ServingModuleButtonsFinal> {
         });
   }
 
+  // 다른 트레이 상품 추가 여부
   void showCheckingPopup(context) {
     showDialog(
         barrierDismissible: false,
@@ -191,6 +190,7 @@ class _ServingModuleButtonsFinalState extends State<ServingModuleButtonsFinal> {
   @override
   Widget build(BuildContext context) {
     _servingProvider = Provider.of<ServingModel>(context, listen: false);
+    _orderProvider = Provider.of<OrderModel>(context, listen: false);
 
     itemName = _servingProvider.menuItem;
 
@@ -269,7 +269,7 @@ class _ServingModuleButtonsFinalState extends State<ServingModuleButtonsFinal> {
             style: FilledButton.styleFrom(
                 backgroundColor: Colors.transparent,
                 shape: RoundedRectangleBorder(
-                    side: BorderSide(width: 1, color: Colors.redAccent),
+                    // side: BorderSide(width: 1, color: Colors.redAccent),
                     borderRadius:
                         BorderRadius.circular(buttonRadius * pixelRatio)),
                 fixedSize: Size(buttonSize[buttonWidth] * pixelRatio,
@@ -277,6 +277,9 @@ class _ServingModuleButtonsFinalState extends State<ServingModuleButtonsFinal> {
             onPressed: widget.screens == 0
                 ? () {
                     if (i == 0) {
+                      setState(() {
+                        _orderProvider.SelectedItemsQT=[false, false, false, false];
+                      });
                       showOrderPopup(context);
                     } else {
                       _servingProvider.trayCheckAll = true;
