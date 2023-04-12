@@ -11,7 +11,7 @@ class CheckOutScreenFinal extends StatefulWidget {
 
 class _CheckOutScreenFinalState extends State<CheckOutScreenFinal> {
 
-  String shoppingCartImg = 'final_assets/screens/koriZFinalShoppingCart.png';
+  String shoppingCartImg = 'final_assets/screens/Serving/koriZFinalShoppingCart.png';
 
   void showPaymentPopup(context) {
     showDialog(

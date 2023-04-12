@@ -25,7 +25,7 @@ class _SelectTableModalFinalState extends State<SelectTableModalFinal> {
   String? tableNumber;
   String? itemName;
 
-  String tableImg = 'final_assets/screens/koriZFinalTableSelect.png';
+  String tableImg = 'final_assets/screens/Serving/koriZFinalTableSelect.png';
 
   late var goalPosition = List<String>.empty();
   List<String> orderedItems = [];

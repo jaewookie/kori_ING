@@ -29,7 +29,7 @@ class _SelectReceiptModalFinalState extends State<SelectReceiptModalFinal> {
   List<String> testItems = ['햄버거', '라면', '치킨', '핫도그', '미주문'];
 
   // 배경 화면
-  String receiptSelectBG = 'final_assets/screens/koriZFinalReceiptSelect.png';
+  String receiptSelectBG = 'final_assets/screens/Serving/koriZFinalReceiptSelect.png';
 
   // 코리 바디 및 트레이 사진
   late String koriBody;

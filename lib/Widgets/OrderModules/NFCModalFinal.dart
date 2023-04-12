@@ -8,7 +8,7 @@ class NFCModuleScreenFinal extends StatefulWidget {
 }
 
 class _NFCModuleScreenFinalState extends State<NFCModuleScreenFinal> {
-  String NFCimg = 'final_assets/screens/koriZFinalNFC.png';
+  String NFCimg = 'final_assets/screens/Serving/koriZFinalNFC.png';
 
   @override
   Widget build(BuildContext context) {

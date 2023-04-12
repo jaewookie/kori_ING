@@ -10,7 +10,7 @@ class PaymentScreenFinal extends StatefulWidget {
 
 class _PaymentScreenFinalState extends State<PaymentScreenFinal> {
 
-  String paymentBackground = 'final_assets/screens/koriZFinalSelectPayment.png';
+  String paymentBackground = 'final_assets/screens/Serving/koriZFinalSelectPayment.png';
 
   @override
   Widget build(BuildContext context) {

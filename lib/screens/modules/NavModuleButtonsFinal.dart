@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:kori_test_refactoring/Providers/ServingModel.dart';
+import 'package:kori_test_refactoring/Utills/navScreens.dart';
+import 'package:kori_test_refactoring/Widgets/NavigatorPauseModuleFinal.dart';
+import 'package:kori_test_refactoring/Widgets/NavigatorProgressModuleFinal.dart';
+import 'package:kori_test_refactoring/screens/modules/Service/shipping_final/ShippingDestinationModuleFinal.dart';
+import 'package:provider/provider.dart';
 
 class NavModuleButtonsFinal extends StatefulWidget {
   final int? screens;
@@ -13,6 +19,8 @@ class NavModuleButtonsFinal extends StatefulWidget {
 }
 
 class _NavModuleButtonsFinalState extends State<NavModuleButtonsFinal> {
+  late ServingModel _servingProvider;
+
   double pixelRatio = 0.75;
 
   late List<double> buttonPositionWidth;
@@ -31,14 +39,16 @@ class _NavModuleButtonsFinalState extends State<NavModuleButtonsFinal> {
 
   @override
   Widget build(BuildContext context) {
+    _servingProvider = Provider.of<ServingModel>(context, listen: false);
+
     if (widget.screens == 0) {
       // 메인 화면
-      buttonPositionWidth = [143, 143, 743, 747];
-      buttonPositionHeight = [400, 400, 1021, 1021];
+      buttonPositionWidth = [143];
+      buttonPositionHeight = [1015];
 
-      buttonSize = [570, 565];
+      buttonSize = [1155, 230];
 
-      buttonRadius = 30;
+      buttonRadius = 50;
     } else if (widget.screens == 1) {
       // 서빙 일시 정지
       buttonPositionWidth = [143, 143, 743];
@@ -50,18 +60,22 @@ class _NavModuleButtonsFinalState extends State<NavModuleButtonsFinal> {
 
       buttonRadius = 50;
     } else if (widget.screens == 2) {
+      // 택배 일시 정지
+      buttonPositionWidth = [143, 143, 143, 743];
+      buttonPositionHeight = [1015, 1352, 1630, 1630];
 
-    } else if (widget.screens == 3) {
-      // 서빙 상품 선택 화면
+      buttonSize = [];
+      buttonSize1 = [1155, 230];
+      buttonSize2 = [555, 325];
 
-    } else if (widget.screens == 4) {
-      // 서빙 테이블 선택 화면
-
-    } else if (widget.screens == 5) {
-
-    } else if (widget.screens == 6) {
-
+      buttonRadius = 50;
     }
+    // else if (widget.screens == 3) {
+    //   // 서빙 상품 선택 화면
+    // } else if (widget.screens == 4) {
+    //   // 서빙 테이블 선택 화면
+    // } else if (widget.screens == 5) {
+    // } else if (widget.screens == 6) {}
 
     buttonNumbers = buttonPositionHeight.length;
 
@@ -83,25 +97,88 @@ class _NavModuleButtonsFinalState extends State<NavModuleButtonsFinal> {
                             buttonSize1[buttonHeight] * pixelRatio)
                         : Size(buttonSize2[buttonWidth] * pixelRatio,
                             buttonSize2[buttonHeight] * pixelRatio)
-                    : Size(buttonSize[buttonWidth] * pixelRatio,
-                        buttonSize[buttonHeight] * pixelRatio)),
+                    : widget.screens == 2
+                        ? i == 0 || i == 1
+                            ? Size(buttonSize1[buttonWidth] * pixelRatio,
+                                buttonSize1[buttonHeight] * pixelRatio)
+                            : Size(buttonSize2[buttonWidth] * pixelRatio,
+                                buttonSize2[buttonHeight] * pixelRatio)
+                        : Size(buttonSize[buttonWidth] * pixelRatio,
+                            buttonSize[buttonHeight] * pixelRatio)),
             onPressed: widget.screens == 0
-                ? () {}
+                ? () {
+                    navPage(
+                            context: context,
+                            page: NavigatorPauseModuleFinal(),
+                            enablePop: false)
+                        .navPageToPage();
+                    // 일시정지 명령 추가 필요
+                  }
                 : widget.screens == 1
                     ? () {
                         if (i == 0) {
-                          // 추후에는 API 통신을 이용한 일시정지 추가
-                          Navigator.pop(context);
+                          // 재시작 추가 필요
+                          navPage(
+                                  context: context,
+                                  page: NavigatorProgressModuleFinal(),
+                                  enablePop: false)
+                              .navPageToPage();
+                          _servingProvider.playAd = false;
                         } else if (i == 1) {
                           // 추후에는 API 통신을 이용한 충전하러가기 기능 추가
-                          Navigator.pop(context);
+                          navPage(
+                                  context: context,
+                                  page: NavigatorProgressModuleFinal(),
+                                  enablePop: false)
+                              .navPageToPage();
+                          _servingProvider.playAd = false;
                         } else {
                           // 추후에는 골 포지션 변경을 하며 자율주행 명령 추가
-                          Navigator.pop(context);
+                          navPage(
+                                  context: context,
+                                  page: NavigatorProgressModuleFinal(),
+                                  enablePop: false)
+                              .navPageToPage();
+                          _servingProvider.playAd = false;
                         }
                       }
                     : widget.screens == 2
-                        ? () {}
+                        ? () {
+                            if (i == 0) {
+                              //
+                              // 재시작 API 추가
+                              navPage(
+                                      context: context,
+                                      page: NavigatorProgressModuleFinal(),
+                                      enablePop: false)
+                                  .navPageToPage();
+                              _servingProvider.playAd=false;
+                            } else if (i == 1) {
+                              navPage(
+                                      context: context,
+                                      page: ShippingDestinationNewFinal(),
+                                      enablePop: false)
+                                  .navPageToPage();
+                            } else if (i == 2) {
+                              //
+                              // 충전기 이동 API 및 목적지 명 변경 추가
+                              navPage(
+                                      context: context,
+                                      page: NavigatorProgressModuleFinal(),
+                                      enablePop: false)
+                                  .navPageToPage();
+                              _servingProvider.playAd=false;
+                            } else {
+                              //
+                              // 지정 대기 장소로 이동 API 추가
+                              navPage(
+                                      context: context,
+                                      page: NavigatorProgressModuleFinal(),
+                                      enablePop: false)
+                                  .navPageToPage();
+                              _servingProvider.playAd=false;
+                            }
+                          }
                         : widget.screens == 3
                             ? () {}
                             : widget.screens == 4

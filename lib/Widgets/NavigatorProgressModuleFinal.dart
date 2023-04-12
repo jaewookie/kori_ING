@@ -1,42 +1,38 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:kori_test_refactoring/Providers/NetworkModel.dart';
 import 'package:kori_test_refactoring/Providers/ServingModel.dart';
 import 'package:kori_test_refactoring/Utills/navScreens.dart';
-import 'package:kori_test_refactoring/Utills/postAPI.dart';
+import 'package:kori_test_refactoring/Widgets/ShippingModules/shippingNavDone.dart';
 import 'package:kori_test_refactoring/screens/ServiceScreen.dart';
 import 'package:kori_test_refactoring/screens/modules/NavModuleButtonsFinal.dart';
-import 'package:kori_test_refactoring/screens/modules/Service/serving/ServingMenu.dart';
-import 'package:kori_test_refactoring/screens/modules/Service/serving/ServingProgress.dart';
-import 'package:kori_test_refactoring/screens/modules/Service/serving2/ServingMenu2.dart';
-import 'package:kori_test_refactoring/screens/modules/Service/serving2/ServingProgress2.dart';
-import 'package:kori_test_refactoring/screens/modules/Service/serving3/ServingProgress3.dart';
-import 'package:kori_test_refactoring/screens/modules/Service/serving3/TraySelection3.dart';
 import 'package:kori_test_refactoring/screens/modules/Service/serving_final/ServingProgressFinal.dart';
-import 'package:kori_test_refactoring/screens/modules/Service/shipping/ShippingDestinationModule.dart';
-import 'package:kori_test_refactoring/screens/modules/Service/shipping/ShippingDone.dart';
-import 'package:kori_test_refactoring/screens/modules/Service/shipping/ShippingMenu.dart';
 import 'package:kori_test_refactoring/screens/modules/Service/shipping_final/ShippingDoneFinal.dart';
 import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
 
-class NavigatorPauseModuleFinal extends StatefulWidget {
-  NavigatorPauseModuleFinal({
+class NavigatorProgressModuleFinal extends StatefulWidget {
+  NavigatorProgressModuleFinal({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<NavigatorPauseModuleFinal> createState() =>
-      _NavigatorPauseModuleFinalState();
+  State<NavigatorProgressModuleFinal> createState() =>
+      _NavigatorProgressModuleFinalState();
 }
 
-class _NavigatorPauseModuleFinalState extends State<NavigatorPauseModuleFinal> {
+class _NavigatorProgressModuleFinalState
+    extends State<NavigatorProgressModuleFinal> {
   late NetworkModel _networkProvider;
   late ServingModel _servingProvider;
 
   late VideoPlayerController _controller;
 
   String introVideo = 'assets/videos/KoriIntro_v1.1.0.mp4';
+
+  late String forwardArrowIcon1;
+  late String forwardArrowIcon2;
+  late String forwardArrowIcon3;
+
 
   String? startUrl;
   String? stpUrl;
@@ -57,6 +53,15 @@ class _NavigatorPauseModuleFinalState extends State<NavigatorPauseModuleFinal> {
 
   int? serviceState;
 
+  void showShippingDone(context) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          return ShippingNavDone();
+        });
+  }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -76,13 +81,17 @@ class _NavigatorPauseModuleFinalState extends State<NavigatorPauseModuleFinal> {
       });
 
     _playVideo();
+
+    forwardArrowIcon1 = 'final_assets/icons/decoration/ForwardArrow1.png';
+    forwardArrowIcon2 = 'final_assets/icons/decoration/ForwardArrow2.png';
+    forwardArrowIcon3 = 'final_assets/icons/decoration/ForwardArrow3.png';
   }
 
   void _playVideo() async {
     _controller.play();
   }
 
-  late String backgroundImage;
+  late String backgroundImageServ;
 
   @override
   void dispose() {
@@ -96,9 +105,9 @@ class _NavigatorPauseModuleFinalState extends State<NavigatorPauseModuleFinal> {
     _servingProvider = Provider.of<ServingModel>(context, listen: false);
 
     if (_networkProvider.serviceState == 0) {
-      backgroundImage = "final_assets/screens/Nav/koriZFinalShipPauseNav.png";
-    } else if (_networkProvider.serviceState == 0) {
-      backgroundImage = "final_assets/screens/Nav/koriZFinalServPauseNav.png";
+      backgroundImageServ = "final_assets/screens/Nav/koriZFinalShipProgNav.png";
+    } else if (_networkProvider.serviceState == 1) {
+      backgroundImageServ = "final_assets/screens/Nav/koriZFinalServProgNav.png";
     }
 
     offStageAd = _servingProvider.playAd;
@@ -112,22 +121,13 @@ class _NavigatorPauseModuleFinalState extends State<NavigatorPauseModuleFinal> {
 
     serviceState = _networkProvider.serviceState;
 
+    print(serviceState);
+
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
     double videoWidth = _controller.value.size.width;
     double videoHeight = _controller.value.size.height;
-
-    double textButtonWidth = screenWidth * 0.55;
-    double textButtonHeight = screenHeight * 0.15 * 0.6;
-    // double textButtonWidth = screenWidth * 0.85;
-    // double textButtonHeight = screenHeight * 0.15;
-
-    TextStyle? textFont1 = Theme.of(context).textTheme.displaySmall;
-    TextStyle? textFont2 = Theme.of(context).textTheme.headlineLarge;
-
-    TextStyle? buttonFont = Theme.of(context).textTheme.displayLarge;
-    TextStyle? buttonFont2 = Theme.of(context).textTheme.displaySmall;
 
     return Scaffold(
       appBar: AppBar(
@@ -196,6 +196,20 @@ class _NavigatorPauseModuleFinalState extends State<NavigatorPauseModuleFinal> {
             iconSize: screenHeight * 0.03,
             alignment: Alignment.center,
           ),
+          IconButton(
+            padding: EdgeInsets.fromLTRB(0, 10, 10, 0),
+            onPressed: () {
+              setState(() {
+                _servingProvider.playAD();
+              });
+            },
+            icon: Icon(
+              Icons.play_circle,
+            ),
+            color: Color(0xffB7B7B7),
+            iconSize: screenHeight * 0.03,
+            alignment: Alignment.center,
+          ),
           Padding(
             padding: EdgeInsets.fromLTRB(0, 10, 10, 0),
             child: Icon(Icons.battery_charging_full,
@@ -210,24 +224,95 @@ class _NavigatorPauseModuleFinalState extends State<NavigatorPauseModuleFinal> {
           constraints: BoxConstraints.expand(),
           decoration: BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage(backgroundImage), fit: BoxFit.cover)),
+                  image: AssetImage(backgroundImageServ), fit: BoxFit.cover)),
           child: Container(
             child: Stack(
               children: [
                 Container(
                     margin: EdgeInsets.only(top: screenHeight * 0.04),
                     child: null),
-                _networkProvider.serviceState == 0
-                    ? NavModuleButtonsFinal(
-                        screens: 2,
-                      )
-                    : _networkProvider.serviceState == 1
-                        ? NavModuleButtonsFinal(screens: 1)
-                        : Container(),
+                NavModuleButtonsFinal(
+                  screens: 0,
+                )
               ],
             ),
           ),
         ),
+        Positioned(
+            left: 710 * 0.75,
+            top: 530 * 0.75,
+            child: Container(
+              width: 150 * 0.75,
+              height: 150 * 0.75,
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage(forwardArrowIcon1), fit: BoxFit.cover)),
+            )),
+        Positioned(
+            left: 650 * 0.75,
+            top: 530 * 0.75,
+            child: Container(
+              width: 150 * 0.75,
+              height: 150 * 0.75,
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage(forwardArrowIcon2), fit: BoxFit.cover)),
+            )),
+        Positioned(
+            left: 590 * 0.75,
+            top: 530 * 0.75,
+            child: Container(
+              width: 150 * 0.75,
+              height: 150 * 0.75,
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage(forwardArrowIcon3), fit: BoxFit.cover)),
+            )),
+        GestureDetector(
+          // 스크린 터치시 화면 이동을 위한 위젯
+          onTap: () {
+            setState(() {
+              _servingProvider.playAD();
+            });
+          },
+          child: Center(
+            child: Offstage(
+              offstage: offStageAd!,
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: screenWidth,
+                          height: screenHeight * 0.8,
+                          child: FittedBox(
+                            fit: BoxFit.cover,
+                            child: SizedBox(
+                              width: videoWidth,
+                              height: videoHeight,
+                              child: _controller.value.isInitialized
+                                  ? AspectRatio(
+                                      aspectRatio:
+                                          _controller.value.aspectRatio,
+                                      child: VideoPlayer(
+                                        _controller,
+                                      ),
+                                    )
+                                  : Container(),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        )
       ]),
     );
   }

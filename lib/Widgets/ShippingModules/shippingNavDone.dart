@@ -4,20 +4,21 @@ import 'package:kori_test_refactoring/Providers/ServingModel.dart';
 import 'package:kori_test_refactoring/Utills/navScreens.dart';
 import 'package:kori_test_refactoring/Widgets/NavigatorPauseModuleFinal.dart';
 import 'package:kori_test_refactoring/Widgets/NavigatorProgressModuleFinal.dart';
+import 'package:kori_test_refactoring/screens/modules/Service/shipping_final/ShippingMenuFinal.dart';
 import 'package:provider/provider.dart';
 
-class NavCountDownModalFinal extends StatefulWidget {
-  const NavCountDownModalFinal({Key? key}) : super(key: key);
+class ShippingNavDone extends StatefulWidget {
+  const ShippingNavDone({Key? key}) : super(key: key);
 
   @override
-  State<NavCountDownModalFinal> createState() => _NavCountDownModalFinalState();
+  State<ShippingNavDone> createState() => _ShippingNavDoneState();
 }
 
-class _NavCountDownModalFinalState extends State<NavCountDownModalFinal> {
+class _ShippingNavDoneState extends State<ShippingNavDone> {
   late ServingModel _servingProvider;
   late NetworkModel _networkProvider;
 
-  late String countDownPopup;
+  late String countDownPopup = 'final_assets/screens/Shipping/koriZFinalShippingDone.png';
 
   @override
   Widget build(BuildContext context) {
@@ -26,12 +27,6 @@ class _NavCountDownModalFinalState extends State<NavCountDownModalFinal> {
 
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
-
-    if(_networkProvider.serviceState==0){
-      countDownPopup = 'final_assets/screens/Shipping/koriZFinalShipCountdown.png';
-    }else if(_networkProvider.serviceState==1){
-      countDownPopup = 'final_assets/screens/Serving/koriZFinalServCountDown.png';
-    }
 
     return Container(
       child:AlertDialog(
@@ -54,32 +49,9 @@ class _NavCountDownModalFinalState extends State<NavCountDownModalFinal> {
                         // side: BorderSide(width: 1, color: Colors.redAccent),
                         borderRadius:
                         BorderRadius.circular(0)),
-                    fixedSize: Size(362*0.75, 128*0.75)),
+                    fixedSize: Size(724*0.75, 128*0.75)),
                 onPressed: (){
-                  if(_networkProvider.serviceState==0){
-                    Navigator.pop(context);
-                  }else if(_networkProvider.serviceState==1){
-                    Navigator.pop(context);
-                    Navigator.pop(context);
-                  }
-                },
-                child: null,
-              ),
-            ),
-            Positioned(
-              left: 362*0.75,
-              top: 192,
-              child: FilledButton(
-                style: FilledButton.styleFrom(
-                    backgroundColor: Colors.transparent,
-                    shape: RoundedRectangleBorder(
-                        // side: BorderSide(width: 1, color: Colors.redAccent),
-                        borderRadius:
-                        BorderRadius.circular(0)),
-                    fixedSize: Size(362*0.75, 128*0.75)),
-                onPressed: (){
-                  _servingProvider.playAd = false;
-                  navPage(context: context, page: NavigatorProgressModuleFinal(), enablePop: false).navPageToPage();
+                  navPage(context: context, page: ShippingMenuFinal(), enablePop: false).navPageToPage();
                 },
                 child: null,
               ),

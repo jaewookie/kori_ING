@@ -16,7 +16,7 @@ class _TrayCheckingModalFinalState extends State<TrayCheckingModalFinal> {
 
   late ServingModel _servingProvider;
 
-  String itemSelectBG = 'final_assets/screens/koriZFinalTrayChecking.png';
+  String itemSelectBG = 'final_assets/screens/Serving/koriZFinalTrayChecking.png';
 
   void showCountDownPopup(context){
     showDialog(

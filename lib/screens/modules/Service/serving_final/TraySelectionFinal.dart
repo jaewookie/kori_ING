@@ -87,7 +87,7 @@ class _TraySelectionFinalState extends State<TraySelectionFinal> {
     // TODO: implement initState
     super.initState();
 
-    backgroundImage = "final_assets/screens/koriZFinalServing.png";
+    backgroundImage = "final_assets/screens/Serving/koriZFinalServing.png";
     resetIcon = "final_assets/icons/trayReset.png";
     downArrowIcon1 = 'final_assets/icons/decoration/DownArrow1.png';
     downArrowIcon2 = 'final_assets/icons/decoration/DownArrow2.png';

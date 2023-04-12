@@ -22,7 +22,7 @@ class TrayStatusModalFinal extends StatefulWidget {
 class _TrayStatusModalFinalState extends State<TrayStatusModalFinal> {
 
   late ServingModel _servingProvider;
-  String trayStatusImg = 'final_assets/screens/koriZFinalTrayStatus.png';
+  String trayStatusImg = 'final_assets/screens/Serving/koriZFinalTrayStatus.png';
 
 
   @override

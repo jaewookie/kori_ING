@@ -30,7 +30,7 @@ class _SelectItemModalFinalState extends State<SelectItemModalFinal> {
 
   List<String> menuItems = ['햄버거', '라면', '치킨', '핫도그'];
 
-  String itemSelectBG = 'final_assets/screens/koriZFinalItemSelect.png';
+  String itemSelectBG = 'final_assets/screens/Serving/koriZFinalItemSelect.png';
 
   String downArrowIcon1 = 'final_assets/icons/decoration/DownArrow1.png';
   String downArrowIcon2 = 'final_assets/icons/decoration/DownArrow2.png';

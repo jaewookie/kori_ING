@@ -23,7 +23,7 @@ class _TableSelectImgFinalState extends State<TableSelectImgFinal> {
   late NetworkModel _networkProvider;
   late ServingModel _servingProvider;
 
-  String tableSelectBG = 'final_assets/screens/koriZFinalTableSelect.png';
+  String tableSelectBG = 'final_assets/screens/Serving/koriZFinalTableSelect.png';
 
   String? tableNumber;
 

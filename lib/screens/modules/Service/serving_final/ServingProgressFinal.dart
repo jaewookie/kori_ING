@@ -32,7 +32,7 @@ class _ServingProgressFinalState extends State<ServingProgressFinal> {
   // late List<String> itemDestinations;
   // late List<String> trayDestinations;
 
-  String backgroundImage = "final_assets/screens/koriZFinalServingDone.png";
+  String backgroundImage = "final_assets/screens/Serving/koriZFinalServingDone.png";
 
 
 

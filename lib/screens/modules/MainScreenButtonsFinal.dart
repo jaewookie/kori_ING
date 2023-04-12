@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kori_test_refactoring/Providers/NetworkModel.dart';
 
 import 'package:kori_test_refactoring/Utills/navScreens.dart';
 
@@ -9,6 +10,8 @@ import 'package:kori_test_refactoring/screens/ServiceScreenFinal.dart';
 import 'package:kori_test_refactoring/screens/modules/Service/hotel/HotelServiceMenu.dart';
 import 'package:kori_test_refactoring/screens/modules/Service/serving_final/TraySelectionFinal.dart';
 import 'package:kori_test_refactoring/screens/modules/Service/shipping/ShippingMenu.dart';
+import 'package:kori_test_refactoring/screens/modules/Service/shipping_final/ShippingMenuFinal.dart';
+import 'package:provider/provider.dart';
 
 class MainScreenButtonsFinal extends StatefulWidget {
   final int? screens;
@@ -23,6 +26,7 @@ class MainScreenButtonsFinal extends StatefulWidget {
 }
 
 class _MainScreenButtonsFinalState extends State<MainScreenButtonsFinal> {
+  late NetworkModel _networkProvider;
 
   late var screenList = List<Widget>.empty();
   late var serviceList = List<Widget>.empty();
@@ -45,7 +49,6 @@ class _MainScreenButtonsFinalState extends State<MainScreenButtonsFinal> {
   int buttonWidth = 0;
   int buttonHeight = 1;
 
-
   @override
   void initState() {
     // TODO: implement initState
@@ -57,11 +60,12 @@ class _MainScreenButtonsFinalState extends State<MainScreenButtonsFinal> {
       const AdminScreen(),
       const ConfigScreen()
     ];
-    serviceList = [ShippingMenu(), TraySelectionFinal(), HotelServiceMenu()];
+    serviceList = [ShippingMenuFinal(), TraySelectionFinal(), HotelServiceMenu()];
   }
 
   @override
   Widget build(BuildContext context) {
+    _networkProvider = Provider.of<NetworkModel>(context, listen: false);
 
     if (widget.screens == 0) {
       // 메인 화면
@@ -109,18 +113,27 @@ class _MainScreenButtonsFinalState extends State<MainScreenButtonsFinal> {
                 : widget.screens == 1
                     ? () {
                         if (i == 0) {
+                          setState(() {
+                            _networkProvider.serviceState = 0;
+                          });
                           navPage(
                                   context: context,
                                   page: serviceList[i],
                                   enablePop: true)
                               .navPageToPage();
                         } else if (i == 1) {
+                          setState(() {
+                            _networkProvider.serviceState = 1;
+                          });
                           navPage(
                                   context: context,
                                   page: serviceList[i],
                                   enablePop: true)
                               .navPageToPage();
                         } else {
+                          setState(() {
+                            _networkProvider.serviceState = 2;
+                          });
                           navPage(
                                   context: context,
                                   page: serviceList[i],
